@@ -1,0 +1,20 @@
+/* MOBILE / TOUCH BASICS (all phones and tablets, any orientation).
+   No layout here (see mobileCards.css, mobileLandscape.css, mobilePortrait.css): only how the page reacts to fingers.
+   - no grey tap flash, no long-press menu, no double-tap zoom, no pull-to-refresh / rubber banding mid-fight
+   - the hand's cards stay draggable (touch-action: none, set in cards.css); cards in scrolling lists can still be scrolled past
+   - notches / rounded corners: viewport-fit=cover in index.html + safe-area padding on the page */
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; overscroll-behavior: none; }
+body { -webkit-tap-highlight-color: transparent; -webkit-touch-callout: none;
+  padding-left: max(16px, env(safe-area-inset-left)); padding-right: max(16px, env(safe-area-inset-right));
+  padding-bottom: max(16px, env(safe-area-inset-bottom)); }
+button, [data-action], .card { touch-action: manipulation; }
+.hand.fan .card { touch-action: none; }
+.log { -webkit-user-select: text; }
+
+@media (pointer: coarse) {
+  /* hover does not exist on a finger: the "hovered" look sticks after a tap, so keep the lift only for picked cards */
+  button:hover:not(:disabled) { background: var(--panel2); border-color: var(--line); }
+  button:active:not(:disabled) { background: #2c2735; border-color: var(--gold); }
+  .tip-layer { max-width: min(260px, 60vw); }
+  .tip-layer.side { width: min(220px, 46vw); }
+}

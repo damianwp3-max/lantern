@@ -1,0 +1,80 @@
+/* PHONE, PORTRAIT (narrow and tall, e.g. 390 x 844): the fight stacks vertically on one screen, nothing scrolls.
+   Column: compact top bar, enemies on top, the heroine + her nameplate below them, the hand along the bottom.
+   Only active on screens up to 620px wide (portrait); wider screens keep the normal layout. */
+@media (max-width: 620px) and (orientation: portrait) {
+  body { padding-top: max(6px, env(safe-area-inset-top)); padding-bottom: max(6px, env(safe-area-inset-bottom));
+    padding-left: max(6px, env(safe-area-inset-left)); padding-right: max(6px, env(safe-area-inset-right)); }
+  h1 { font-size: 30px; }
+
+  #app:has(.battlefield) { position: relative; display: flex; flex-direction: column; height: calc(100dvh - 12px); overflow: hidden; }
+
+  /* top bar: two tight rows if needed */
+  .bar.topbar { padding: 3px 5px; margin-bottom: 4px; gap: 4px; flex: none; border-radius: 10px; }
+  .tb-left, .tb-right { gap: 4px; }
+  .tb-block { min-height: 28px; padding: 1px 7px 1px 5px; gap: 5px; }
+  .tb-ico { width: 17px; height: 17px; }
+  .tb-hp .tb-ico { width: 19px; height: 19px; }
+  .tb-num { font-size: 15px; }
+  .tb-num small { font-size: 10px; }
+  .tb-label, .tb-pips, .tb-floor { display: none; }
+  .tb-where { padding-right: 6px; gap: 6px; }
+  .tb-depth { padding: 2px 5px 2px 4px; }
+  .tb-depth b { font-size: 15px; }
+  .tb-level-name { font-size: 12px; }
+  .tb-hp { min-width: 0; }
+  .tb-meter { width: 46px; height: 5px; }
+  .tb-passives .tb-label { display: none; }
+  .tb-btn { padding: 4px 7px; }
+  .tb-btn span { display: none; }
+  .tb-btn .tb-ico { width: 19px; height: 19px; }
+
+  /* battlefield: the space between the top bar and the hand */
+  .battlefield { flex: 1; min-height: 0; height: auto; margin-top: 0; border-radius: 10px; }
+
+  /* enemies across the upper half */
+  .far-side { top: 1%; left: 1%; right: 1%; bottom: 46%; }
+  .enemies { gap: 2px; }
+  .enemy { width: 108px; padding: 2px; transform: scale(.78); }
+  .enemy .sprite { scale: 1; margin-top: 2px; }
+  .enemy .plate { padding: 2px 5px 3px; }
+  .enemy .plate .name, .enemy .name { font-size: 11px; }
+  .intent { font-size: 13px; padding: 1px 8px; margin-bottom: 3px; }
+  .hpbar { height: 13px; }
+  .hp-text { font-size: 9px; line-height: 12px; }
+
+  /* heroine bottom left of the battlefield, nameplate to her right */
+  .near-side { left: 1%; right: 1%; bottom: 164px; align-items: flex-end; }
+  .player-unit { width: 110px; height: 190px; margin-bottom: 0; }
+  .player-unit .mc { --mc-h: 180px !important; left: 0; }
+  .pu-light { left: -30px; right: -30px; height: 140px; }
+  .player { flex: 1; width: auto; margin: 0 0 22px 2px; padding: 4px 8px 5px; gap: 3px; }
+  .pl-name { font-size: 12px; }
+  .pw-btn { font-size: 10px; padding: 1px 6px; }
+
+  /* bottom: hand on top of a row with energy / draw / end turn / discard */
+  .combat-bottom { position: absolute; left: 0; right: 0; bottom: 0; margin: 0; display: grid; grid-template-columns: 1fr auto 1fr; grid-template-rows: auto auto; row-gap: 0; align-items: end; }
+  .combat-bottom .hand { grid-column: 1 / -1; grid-row: 1; margin: 0; }
+  .cb-side { flex-direction: row; gap: 8px; padding: 0 6px 4px; align-items: center; }
+  .cb-left { grid-row: 2; grid-column: 1; justify-content: flex-start; }
+  .cb-right { grid-row: 2; grid-column: 3; justify-content: flex-end; }
+  .energy-orb { width: 48px; height: 48px; border-width: 2px; }
+  .energy-orb .energy { font-size: 19px; }
+  .energy-orb .energy small { font-size: 9px; margin-top: 5px; }
+  .pile-btn { width: 40px; height: 48px; }
+  .pile-stack { inset: 0 5px 8px; }
+  .pile-icon { font-size: 14px; }
+  .pile-count { min-width: 19px; height: 19px; line-height: 15px; font-size: 10px; border-width: 1.5px; }
+  .cb-piles { gap: 4px; }
+  .pile-exhaust { transform: none; }
+  .cb-right .end-turn-btn { min-width: 0; padding: 5px 12px 4px; border-radius: 15px; gap: 1px; }
+  .end-turn-btn .et-label { font-size: 15px; }
+  .end-turn-btn .et-turn { font-size: 8px; padding: 0 6px; }
+  .end-turn-btn .et-turn b { font-size: 11px; }
+
+  .hand.fan .card { width: 78px; height: 110px; margin: 0 -6px; }
+  .hand.fan .card.selected, .hand.fan .card.aiming { scale: 1.9; translate: 0 -70px; }
+
+  .combat-foot { display: none; }
+  .turn-recap { top: 44px; min-width: 0; max-width: 92%; font-size: 12px; }
+  .coop-panel { right: 6px; bottom: auto; top: 50px; width: 170px; }
+}

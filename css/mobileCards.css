@@ -1,0 +1,31 @@
+/* PHONE CARD SIZE (cards in the hand, drag ghost, reward / deck lists). Phone = landscape up to 520px tall, or portrait up to 620px wide.
+   The card face is laid out in percentages, so only fixed pixel sizes need shrinking (cards.css / cardFrame.css).
+   A picked card in the hand grows to a readable size (a finger cannot hover to read it). */
+@media (max-height: 520px) and (orientation: landscape), (max-width: 620px) and (orientation: portrait) {
+  .card { width: 118px; height: 168px; font-size: 11px; border-radius: 9px; border-width: 1.5px; }
+  .card .cost { top: -8px; left: -8px; width: 26px; height: 26px; border-width: 2px; }
+  .card .cost span { font-size: 14px; }
+  .card .top { top: 5px; left: 5px; right: 5px; border-radius: 6px 6px 3px 3px; }
+  .card .banner { height: 19px; top: calc(46% - 4px); }
+  .card .banner .name { font-size: 11px; padding: 0 9px; }
+  .card .type { top: calc(46% + 15px); font-size: 7px; letter-spacing: 1.2px; padding: 0 6px; }
+  .card .text { left: 6px; right: 6px; top: calc(46% + 25px); bottom: 7px; font-size: 10.5px; line-height: 1.22; padding: 1px 2px; }
+  .card .cf-orn { opacity: .6; }
+  .card .mote, .card .card-shine { display: none; }
+
+  /* the hand: smaller cards, tighter fan */
+  .hand.fan { min-height: 0; padding-top: 0; }
+  .hand.fan .card { width: 92px; height: 130px; margin: 0 -9px; transform-origin: 50% 120%; }
+  .hand.fan .card .banner { height: 16px; }
+  .hand.fan .card .banner .name { font-size: 9px; padding: 0 6px; }
+  .hand.fan .card .type { display: none; }
+  .hand.fan .card .text { top: calc(46% + 14px); font-size: 8.5px; line-height: 1.15; }
+  .hand.fan .card .cost { width: 22px; height: 22px; top: -7px; left: -7px; }
+  .hand.fan .card .cost span { font-size: 12px; }
+  .hand.fan .card:hover:not(.disabled), .hand.fan .card.disabled:hover { transform: none; }
+  .hand.fan .card:hover, .hand.fan .card.disabled:hover { rotate: var(--rot, 0deg); translate: 0 var(--dy, 0px); scale: 1; }
+  .hand.fan .card:has(+ .card:hover), .hand.fan .card:hover + .card { translate: 0 var(--dy, 0px); }
+  .hand.fan .card.selected, .hand.fan .card.aiming { rotate: 0deg; translate: 0 -46px; scale: 1.5; z-index: 20; }
+  .hand.fan .card.selected .banner .name, .hand.fan .card.aiming .banner .name { font-size: 9px; }
+  .hand.fan .card.selected .type, .hand.fan .card.aiming .type { display: block; }
+}
