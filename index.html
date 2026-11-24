@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Lantern Descent</title>
+
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/fonts.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/topbar.css">
+  <link rel="stylesheet" href="css/map.css">
+  <link rel="stylesheet" href="css/rest.css">
+  <link rel="stylesheet" href="css/serviceIcons.css">
+  <link rel="stylesheet" href="css/combat.css">
+  <link rel="stylesheet" href="css/enemies.css">
+  <link rel="stylesheet" href="css/cards.css">
+  <link rel="stylesheet" href="css/cardArt.css">
+  <link rel="stylesheet" href="css/cardFrame.css">
+  <link rel="stylesheet" href="css/hand.css">
+  <link rel="stylesheet" href="css/enemyIdle.css">
+  <link rel="stylesheet" href="css/enemyArt.css">
+  <link rel="stylesheet" href="css/juice.css">
+  <link rel="stylesheet" href="css/enemyActions.css">
+  <link rel="stylesheet" href="css/fx.css">
+  <link rel="stylesheet" href="css/character.css">
+  <link rel="stylesheet" href="css/characterPoses.css">
+  <link rel="stylesheet" href="css/hairWind.css">
+  <link rel="stylesheet" href="css/statuses.css">
+  <link rel="stylesheet" href="css/cave.css">
+  <link rel="stylesheet" href="css/hud.css">
+  <link rel="stylesheet" href="css/endTurn.css">
+  <link rel="stylesheet" href="css/tooltip.css">
+  <link rel="stylesheet" href="css/overlay.css">
+  <link rel="stylesheet" href="css/deckViewer.css">
+  <link rel="stylesheet" href="css/library.css">
+  <link rel="stylesheet" href="css/unlocks.css">
+  <link rel="stylesheet" href="css/intents.css">
+  <link rel="stylesheet" href="css/timing.css">
+  <link rel="stylesheet" href="css/settings.css">
+  <link rel="stylesheet" href="css/piercings.css">
+  <link rel="stylesheet" href="css/oil.css">
+  <link rel="stylesheet" href="css/totems.css">
+  <link rel="stylesheet" href="css/events.css">
+  <link rel="stylesheet" href="css/shop.css">
+  <link rel="stylesheet" href="css/merchant.css">
+  <link rel="stylesheet" href="css/picker.css">
+  <link rel="stylesheet" href="css/lantern.css">
+  <link rel="stylesheet" href="css/menu.css">
+  <link rel="stylesheet" href="css/characterSelect.css">
+  <link rel="stylesheet" href="css/camp.css">
+  <link rel="stylesheet" href="css/bat.css">
+  <link rel="stylesheet" href="css/pets.css">
+  <link rel="stylesheet" href="css/qol.css">
+  <link rel="stylesheet" href="css/buttons.css">
+  <link rel="stylesheet" href="css/healthbars.css">
+  <link rel="stylesheet" href="css/panels.css">
+  <link rel="stylesheet" href="css/ornaments.css">
+  <link rel="stylesheet" href="css/bloodDrip.css">
+  <link rel="stylesheet" href="css/runEnd.css">
+  <link rel="stylesheet" href="css/packs.css">
+  <link rel="stylesheet" href="css/packOpening.css">
+  <link rel="stylesheet" href="css/cardTextScroll.css">
+  <link rel="stylesheet" href="css/coop.css">
+</head>
+<body>
+  <div id="app"></div>
+
+  <!-- Load order: core, data, state, map, combat, ui, app. Later files use earlier ones. -->
+  <script src="js/core/namespace.js"></script>
+  <script src="js/core/util.js"></script>
+  <script src="js/core/events.js"></script>
+  <script src="js/i18n/i18n.js"></script>
+  <script src="js/core/mods.js"></script>
+  <script src="js/core/cardRegistry.js"></script>
+
+  <script src="js/data/cardTypesData.js"></script>
+  <script src="js/data/piercingsData.js"></script>
+  <script src="js/data/upgradesData.js"></script>
+  <script src="js/data/cardsData.js"></script>
+  <script src="js/data/cardArtData.js"></script>
+  <script src="js/data/cards/multiTargetCards.js"></script>
+  <script src="js/data/cards/delayedCards.js"></script>
+  <script src="js/data/cards/randomCards.js"></script>
+  <script src="js/data/cards/statusCards.js"></script>
+  <script src="js/data/cards/powerCards.js"></script>
+  <script src="js/data/cards/timedCards.js"></script>
+  <script src="js/data/cards/luckCards.js"></script>
+  <script src="js/data/cards/keepCards.js"></script>
+  <script src="js/data/cards/xCards.js"></script>
+  <script src="js/data/cards/packCards.js"></script>
+  <script src="js/data/cards/packTokens.js"></script>
+  <script src="js/data/cards/junkCards.js"></script>
+  <script src="js/data/cards/fortuneCards.js"></script>
+  <script src="js/data/statusesData.js"></script>
+  <script src="js/data/timingData.js"></script>
+  <script src="js/data/languagesData.js"></script>
+  <script src="js/data/settingsData.js"></script>
+  <script src="js/data/scalingData.js"></script>
+  <script src="js/data/difficultyData.js"></script>
+  <script src="js/data/rewardOddsData.js"></script>
+  <script src="js/data/powersData.js"></script>
+  <script src="js/data/keywordsData.js"></script>
+  <script src="js/data/shortcutsData.js"></script>
+  <script src="js/data/audioData.js"></script>
+  <script src="js/data/uiThemeData.js"></script>
+  <script src="js/data/heroes/lamplighterKit.js"></script>
+  <script src="js/data/cardIconsData.js"></script>
+  <script src="js/data/petsData.js"></script>
+  <script src="js/data/caveData.js"></script>
+  <script src="js/data/enemiesData.js"></script>
+  <script src="js/data/enemiesMoreData.js"></script>
+  <script src="js/data/enemyAIData.js"></script>
+  <script src="js/data/enemyActionsData.js"></script>
+  <script src="js/data/turnFlowData.js"></script>
+  <script src="js/data/intentsData.js"></script>
+  <script src="js/data/enemyTraitsData.js"></script>
+  <script src="js/data/levelsData.js"></script>
+  <script src="js/data/totemsData.js"></script>
+  <script src="js/data/oilData.js"></script>
+  <script src="js/data/shopData.js"></script>
+  <script src="js/data/merchantArtData.js"></script>
+  <script src="js/data/caveEventsData.js"></script>
+  <script src="js/data/caveEventsMore.js"></script>
+  <script src="js/data/petEventsData.js"></script>
+  <script src="js/data/lanternData.js"></script>
+  <script src="js/data/characterArt.js"></script>
+  <script src="js/data/hairWindData.js"></script>
+  <script src="js/data/characterPosesData.js"></script>
+  <script src="js/data/charactersData.js"></script>
+  <script src="js/data/campData.js"></script>
+  <script src="js/data/serviceIconsData.js"></script>
+  <script src="js/data/mapNodesData.js"></script>
+  <script src="js/data/passivesData.js"></script>
+  <script src="js/data/heroPassivesData.js"></script>
+  <script src="js/data/restData.js"></script>
+  <script src="js/data/unlocksData.js"></script>
+  <script src="js/data/experienceData.js"></script>
+  <script src="js/data/cardPacksData.js"></script>
+  <script src="js/data/cardRarityData.js"></script>
+  <script src="js/data/runScoreData.js"></script>
+  <script src="js/data/coopData.js"></script>
+
+  <!-- Translations: English text -> other languages (see js/i18n/i18n.js) -->
+  <script src="js/data/i18n/pl/ui.js"></script>
+  <script src="js/data/i18n/pl/uiMore.js"></script>
+  <script src="js/data/i18n/pl/cardNames.js"></script>
+  <script src="js/data/i18n/pl/cardText.js"></script>
+  <script src="js/data/i18n/pl/world.js"></script>
+  <script src="js/data/i18n/pl/events.js"></script>
+  <script src="js/data/i18n/pl/rules.js"></script>
+  <script src="js/data/i18n/pl/lamplighterKit.js"></script>
+  <script src="js/data/i18n/pl/contentMore.js"></script>
+  <script src="js/data/i18n/pl/eventsMore.js"></script>
+  <script src="js/data/i18n/pl/pets.js"></script>
+  <script src="js/data/i18n/pl/qol.js"></script>
+  <script src="js/data/i18n/pl/packs.js"></script>
+  <script src="js/data/i18n/pl/difficulty.js"></script>
+  <script src="js/data/i18n/pl/audio.js"></script>
+  <script src="js/data/i18n/pl/tweaks.js"></script>
+  <script src="js/data/i18n/pl/leaveRun.js"></script>
+  <script src="js/data/i18n/pl/coop.js"></script>
+
+  <!-- Card variants: upgraded / pierced cards are built on demand (needs all card data above) -->
+  <script src="js/cards/upgrade.js"></script>
+  <script src="js/cards/variants.js"></script>
+  <script src="js/cards/variantText.js"></script>
+  <script src="js/cards/piercing.js"></script>
+  <script src="js/i18n/content.js"></script>
+
+  <script src="js/state/save.js"></script>
+  <script src="js/state/settings.js"></script>
+  <script src="js/audio/audio.js"></script>
+  <script src="js/state/runState.js"></script>
+  <script src="js/state/progress.js"></script>
+  <script src="js/state/runStats.js"></script>
+  <script src="js/state/runScore.js"></script>
+  <script src="js/state/meta.js"></script>
+  <script src="js/map/mapGen.js"></script>
+  <script src="js/map/map.js"></script>
+
+  <script src="js/combat/helpers.js"></script>
+  <script src="js/combat/resolver.js"></script>
+  <script src="js/combat/effects.js"></script>
+  <script src="js/combat/statuses.js"></script>
+  <script src="js/combat/scaling.js"></script>
+  <script src="js/combat/difficulty.js"></script>
+  <script src="js/combat/levelScaling.js"></script>
+  <script src="js/timing/timing.js"></script>
+  <script src="js/combat/delayed.js"></script>
+  <script src="js/combat/powers.js"></script>
+  <script src="js/combat/enemyMoves.js"></script>
+  <script src="js/combat/enemyAI.js"></script>
+  <script src="js/combat/combat.js"></script>
+  <script src="js/combat/healing.js"></script>
+  <script src="js/combat/heroEffects.js"></script>
+  <script src="js/combat/bat.js"></script>
+  <script src="js/combat/junkRules.js"></script>
+  <script src="js/combat/enemyTraits.js"></script>
+  <script src="js/combat/enemyMovesMore.js"></script>
+  <script src="js/combat/enemyActions.js"></script>
+  <script src="js/pets/pets.js"></script>
+  <script src="js/pets/petAbilities.js"></script>
+
+  <script src="js/passives/passives.js"></script>
+  <script src="js/characters/characters.js"></script>
+  <script src="js/rest/rest.js"></script>
+  <script src="js/unlocks/unlocks.js"></script>
+  <script src="js/oil/oil.js"></script>
+  <script src="js/economy/gold.js"></script>
+  <script src="js/totems/totems.js"></script>
+  <script src="js/caveEvents/fightMods.js"></script>
+  <script src="js/caveEvents/caveEvents.js"></script>
+  <script src="js/caveEvents/eventCards.js"></script>
+  <script src="js/caveEvents/eventEffectsMore.js"></script>
+  <script src="js/pets/petEvents.js"></script>
+  <script src="js/picker/picker.js"></script>
+  <script src="js/shop/shop.js"></script>
+  <script src="js/rewards/rewards.js"></script>
+  <script src="js/lantern/lantern.js"></script>
+  <script src="js/library/library.js"></script>
+  <script src="js/unlocks/heroUnlocks.js"></script>
+  <script src="js/unlocks/cardOdds.js"></script>
+  <script src="js/packs/cardPacks.js"></script>
+  <script src="js/cards/rarity.js"></script>
+
+  <script src="js/ui/cardArt.js"></script>
+  <script src="js/ui/cardMotifs/mechanicMotifs.js"></script>
+  <script src="js/ui/cardMotifs/motifKit.js"></script>
+  <script src="js/ui/cardMotifs/bladeMotifs.js"></script>
+  <script src="js/ui/cardMotifs/guardMotifs.js"></script>
+  <script src="js/ui/cardMotifs/luckMotifs.js"></script>
+  <script src="js/ui/cardMotifs/mysticMotifs.js"></script>
+  <script src="js/ui/cardMotifs/packMotifs.js"></script>
+  <script src="js/ui/cardView.js"></script>
+  <script src="js/ui/passiveArt.js"></script>
+  <script src="js/ui/cardMotifs/vampireMotifs.js"></script>
+  <script src="js/ui/pets/petArt.js"></script>
+  <script src="js/ui/components.js"></script>
+  <script src="js/ui/topBar.js"></script>
+  <script src="js/ui/statusIcons.js"></script>
+  <script src="js/ui/serviceIcons.js"></script>
+  <script src="js/ui/enemyTraitIcons.js"></script>
+  <script src="js/ui/statusView.js"></script>
+  <script src="js/ui/intentView.js"></script>
+  <script src="js/ui/timingView.js"></script>
+  <script src="js/ui/tipText.js"></script>
+  <script src="js/ui/tipTextExtra.js"></script>
+  <script src="js/ui/intentViewMore.js"></script>
+  <script src="js/ui/stunView.js"></script>
+  <script src="js/ui/heroTips.js"></script>
+  <script src="js/ui/pets/petTips.js"></script>
+  <script src="js/ui/oilView.js"></script>
+  <script src="js/ui/tooltip.js"></script>
+  <script src="js/ui/overlay.js"></script>
+  <script src="js/ui/caveBackdrop.js"></script>
+  <script src="js/ui/combatHud.js"></script>
+  <script src="js/ui/enemyPlateMore.js"></script>
+  <script src="js/ui/enemyArt/enemyArt.js"></script>
+  <script src="js/ui/enemyArt/rootCellarArt.js"></script>
+  <script src="js/ui/enemyArt/drownedHallsArt.js"></script>
+  <script src="js/ui/enemyArt/emberVaultArt.js"></script>
+  <script src="js/ui/batView.js"></script>
+  <script src="js/ui/pets/petView.js"></script>
+  <script src="js/ui/viewers/pileViewer.js"></script>
+  <script src="js/ui/viewers/powersViewer.js"></script>
+  <script src="js/ui/viewers/settingsViewer.js"></script>
+  <script src="js/ui/packs/packArt.js"></script>
+  <script src="js/ui/packs/packHand.js"></script>
+  <script src="js/ui/packs/packOpening.js"></script>
+  <script src="js/ui/fightSummary.js"></script>
+  <script src="js/ui/unlocksView.js"></script>
+  <script src="js/ui/characterPoses.js"></script>
+  <script src="js/ui/hairWind.js"></script>
+  <script src="js/ui/character.js"></script>
+  <script src="js/ui/merchantArt.js"></script>
+  <script src="js/ui/campScene.js"></script>
+  <script src="js/ui/mapLayout.js"></script>
+  <script src="js/ui/ui.js"></script>
+  <script src="js/ui/fx.js"></script>
+  <script src="js/ui/juice/screenFx.js"></script>
+  <script src="js/ui/juice/combatJuice.js"></script>
+  <script src="js/ui/juice/enemyActionFx.js"></script>
+  <script src="js/ui/juice/junkFx.js"></script>
+  <script src="js/ui/juice/discardFx.js"></script>
+  <script src="js/ui/juice/drawFx.js"></script>
+  <script src="js/ui/juice/rewardJuice.js"></script>
+  <script src="js/ui/juice/heroJuice.js"></script>
+  <script src="js/ui/juice/luckJuice.js"></script>
+  <script src="js/ui/juice/heroFx.js"></script>
+  <script src="js/ui/juice/runEndJuice.js"></script>
+  <script src="js/ui/blood/bloodDrip.js"></script>
+  <script src="js/ui/screens/menuScreen.js"></script>
+  <script src="js/ui/screens/mapScreen.js"></script>
+  <script src="js/ui/screens/combatScreen.js"></script>
+  <script src="js/ui/screens/rewardScreen.js"></script>
+  <script src="js/ui/screens/restScreen.js"></script>
+  <script src="js/ui/screens/deckScreen.js"></script>
+  <script src="js/ui/screens/messageScreen.js"></script>
+  <script src="js/ui/screens/unlocksScreen.js"></script>
+  <script src="js/ui/screens/eventScreen.js"></script>
+  <script src="js/ui/screens/shopScreen.js"></script>
+  <script src="js/ui/screens/pickerScreen.js"></script>
+  <script src="js/ui/screens/lanternScreen.js"></script>
+  <script src="js/ui/screens/libraryScreen.js"></script>
+  <script src="js/ui/screens/characterScreen.js"></script>
+  <script src="js/ui/screens/runEndScreen.js"></script>
+  <script src="js/ui/targeting.js"></script>
+  <script src="js/ui/drag.js"></script>
+  <script src="js/ui/keyboard.js"></script>
+
+  <script src="js/app/app.js"></script>
+  <script src="js/app/actions/menuActions.js"></script>
+  <script src="js/app/actions/mapActions.js"></script>
+  <script src="js/app/actions/combatActions.js"></script>
+  <script src="js/app/actions/endTurnActions.js"></script>
+  <script src="js/app/actions/restActions.js"></script>
+  <script src="js/app/actions/rewardActions.js"></script>
+  <script src="js/app/actions/viewerActions.js"></script>
+  <script src="js/app/actions/unlockActions.js"></script>
+  <script src="js/app/actions/settingsActions.js"></script>
+  <script src="js/app/actions/oilActions.js"></script>
+  <script src="js/app/actions/pickerActions.js"></script>
+  <script src="js/app/actions/eventActions.js"></script>
+  <script src="js/app/actions/shopActions.js"></script>
+  <script src="js/app/actions/lanternActions.js"></script>
+  <script src="js/app/actions/libraryActions.js"></script>
+  <script src="js/app/actions/characterActions.js"></script>
+  <script src="js/app/actions/runEndActions.js"></script>
+  <script src="js/app/actions/leaveRunActions.js"></script>
+  <script src="js/ui/cardTextScroll.js"></script>
+  <script src="js/ui/qol/hotkeys.js"></script>
+  <script src="js/ui/qol/endTurnGuard.js"></script>
+  <script src="js/ui/qol/damagePreview.js"></script>
+  <script src="js/ui/qol/incomingDamage.js"></script>
+  <script src="js/ui/qol/turnRecap.js"></script>
+  <script src="js/ui/polish/ornaments.js"></script>
+  <script src="js/ui/polish/hpTrail.js"></script>
+  <script src="js/ui/polish/pressFx.js"></script>
+  <script src="js/audio/soundHooks.js"></script>
+  <script src="js/i18n/domTranslate.js"></script>
+  <script src="js/ui/coop/lobbyScreens.js"></script>
+  <script src="js/ui/coop/allyView.js"></script>
+  <script src="js/ui/coop/coopTips.js"></script>
+  <script src="js/app/actions/coopActions.js"></script>
+
+  <!-- Co-op (2 players): network, then the rules that wrap the single-player game. Keep these after all actions and screens. -->
+  <script src="js/net/net.js"></script>
+  <script src="js/net/lobby.js"></script>
+  <script src="js/coop/coop.js"></script>
+  <script src="js/coop/combatSeats.js"></script>
+  <script src="js/coop/flow.js"></script>
+  <script src="js/coop/render.js"></script>
+  <script src="js/coop/gift.js"></script>
+  <script src="js/coop/guest.js"></script>
+  <script src="js/coop/session.js"></script>
+  <script src="js/coop/cursors.js"></script>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
