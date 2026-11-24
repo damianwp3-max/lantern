@@ -1,0 +1,15 @@
+/* ENEMY DESIGNS: a colored shape with two glowing eyes. --c color, --s size. Add a shape = add a class here + use it as look.shape in data/enemiesData.js */
+.sprite { position: relative; margin: 0 auto; width: calc(90px * var(--s)); height: calc(90px * var(--s)); background: var(--c); animation: bob 2.4s ease-in-out infinite; box-shadow: inset -8px -10px 0 rgba(0,0,0,.35); }
+@keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+.eye { position: absolute; top: 30%; width: 14%; height: 14%; background: #ffd24a; border-radius: 50%; box-shadow: 0 0 8px #ffb000; animation: blink 4s infinite; }
+.eye:nth-child(1) { left: 26%; } .eye:nth-child(2) { right: 26%; }
+@keyframes blink { 0%,92%,100% { transform: scaleY(1); } 96% { transform: scaleY(.1); } }
+.sprite.rat   { border-radius: 60% 60% 30% 30%; height: calc(60px * var(--s)); width: calc(100px * var(--s)); }
+.sprite.blob  { border-radius: 50% 50% 40% 40% / 70% 70% 30% 30%; }
+.sprite.tall  { width: calc(70px * var(--s)); height: calc(120px * var(--s)); border-radius: 30% 30% 6% 6%; }
+.sprite.crab  { border-radius: 50% 50% 20% 20%; height: calc(65px * var(--s)); width: calc(110px * var(--s)); }
+.sprite.long  { width: calc(120px * var(--s)); height: calc(45px * var(--s)); border-radius: 50px; }
+.sprite.long .eye { top: 25%; }
+.sprite.bell  { clip-path: polygon(50% 0, 85% 25%, 100% 100%, 0 100%, 15% 25%); }
+.sprite.imp   { clip-path: polygon(50% 0, 62% 22%, 100% 15%, 85% 55%, 100% 100%, 0 100%, 15% 55%, 0 15%, 38% 22%); }
+.sprite.block { border-radius: 4px; clip-path: polygon(10% 0, 90% 0, 100% 40%, 85% 100%, 15% 100%, 0 40%); }

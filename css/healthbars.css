@@ -1,0 +1,26 @@
+/* HEALTH BARS: a deep inset track with quarter ticks, a glossy red fill with a
+   sheen, a pale "ghost" piece that drains after a hit and a green flash on
+   heals (js/ui/polish/hpTrail.js). Low HP darkens and throbs gently. */
+.hpbar { height: 17px; border-radius: 9px; background: linear-gradient(#0c090c, #1f1519); border: 1px solid #050304;
+  box-shadow: inset 0 2px 5px rgba(0,0,0,.75), 0 0 0 1px rgba(255,214,160,.10), 0 1px 0 rgba(255,255,255,.04); }
+.hpbar > div { position: relative; z-index: 1; border-radius: 8px 3px 3px 8px;
+  background: linear-gradient(180deg, #ff9a86 0%, #ea4f42 30%, #b52a22 72%, #821915 100%);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.4), inset 0 -2px 3px rgba(0,0,0,.3), 3px 0 8px rgba(255,80,60,.3);
+  transition: width .45s cubic-bezier(.3,.9,.3,1); }
+.hpbar > div::after { content: ''; position: absolute; left: 4px; right: 3px; top: 2px; height: 34%; border-radius: 6px; pointer-events: none;
+  background: linear-gradient(rgba(255,255,255,.38), rgba(255,255,255,0)); }
+.hpbar .hp-ticks { position: absolute; inset: 0; z-index: 2; pointer-events: none;
+  background: repeating-linear-gradient(90deg, transparent 0 calc(25% - 1px), rgba(0,0,0,.38) calc(25% - 1px) 25%); }
+.hpbar .hp-text { z-index: 3; }
+.hpbar .hp-ghost { position: absolute; top: 0; bottom: 0; z-index: 0; background: linear-gradient(#fff4e0, #f0b8a0); opacity: .85;
+  animation: hp-ghost .6s cubic-bezier(.5,0,.6,1) .32s forwards; }
+@keyframes hp-ghost { to { width: 0; opacity: .4; } }
+.hpbar .hp-healed { position: absolute; top: 0; bottom: 0; z-index: 2; pointer-events: none; background: linear-gradient(#c8ffb8, #5ad06a); mix-blend-mode: screen;
+  animation: hp-healed 1s ease-out forwards; }
+@keyframes hp-healed { 0% { opacity: .95; } 100% { opacity: 0; } }
+.hpbar.hp-hurt { animation: hp-hurt .35s ease-out; }
+@keyframes hp-hurt { 30% { box-shadow: inset 0 2px 5px rgba(0,0,0,.75), 0 0 0 1px rgba(255,120,90,.6), 0 0 12px rgba(255,80,60,.6); } }
+.hpbar.hp-low > div { background: linear-gradient(180deg, #ff7060 0%, #d02a20 40%, #7a1010 100%); animation: hp-low 1.4s ease-in-out infinite; }
+@keyframes hp-low { 50% { filter: brightness(1.35); } }
+/* block: the bar wears a blue rim (badge from css/hud.css) */
+.pl-bar:has(.blk-badge) .hpbar { border-color: #2a4a88; box-shadow: 0 0 9px rgba(110,160,255,.55), inset 0 2px 5px rgba(0,0,0,.7), 0 0 0 1px rgba(150,190,255,.35); }

@@ -1,0 +1,44 @@
+/* ENEMY INTENT BUBBLE (js/ui/intentView.js): a speech bubble with one pill per part of the move */
+.intent.intent-bubble { position: relative; display: inline-block; padding: 5px 8px; margin-bottom: 14px; border: 1px solid rgba(255,255,255,.18); border-radius: 14px;
+  background: linear-gradient(rgba(34,29,42,.94), rgba(16,13,20,.94)); box-shadow: 0 4px 14px rgba(0,0,0,.65), inset 0 1px 0 rgba(255,255,255,.08); cursor: help; }
+/* The tail: a rotated square clipped to its lower half, so it hangs BELOW the bubble and never
+   paints a dark notch over the pills (it used to cut into the damage number). */
+.intent-bubble::after { content: ''; position: absolute; left: 50%; bottom: -7px; width: 12px; height: 12px; background: #100d14; border-right: 1px solid rgba(255,255,255,.18); border-bottom: 1px solid rgba(255,255,255,.18);
+  transform: translateX(-50%) rotate(45deg); clip-path: polygon(100% 0, 100% 100%, 0 100%); z-index: -1; pointer-events: none; }
+.ib-parts { display: flex; gap: 6px; align-items: center; justify-content: center; }
+.ib-part { --ib: #cfc8d8; display: inline-flex; align-items: center; gap: 4px; padding: 2px 9px 2px 6px; border-radius: 10px; font-size: 17px; line-height: 22px;
+  background: color-mix(in srgb, var(--ib) 16%, #0c0a10); border: 1px solid color-mix(in srgb, var(--ib) 60%, transparent); color: var(--ib); }
+.ib-part b { color: #fff; font-size: 17px; text-shadow: 0 1px 2px #000; }
+.ib-icon { font-style: normal; font-size: 17px; filter: drop-shadow(0 0 4px color-mix(in srgb, var(--ib) 70%, transparent)); }
+.ib-dmg { --ib: #ff7a6a; }
+.ib-block { --ib: #8ab0ff; }
+.ib-card { --ib: #a8d88a; }
+/* changed damage (Weak / Vulnerable / Might) is told by the hover tip; no underline, so the number stays clean */
+.ib-dmg.changed b { text-decoration: none; }
+.ib-part:hover { filter: brightness(1.25); }
+.intent.intent-bubble.attack, .intent.intent-bubble { color: inherit; }
+.ib-buff { --ib: #ff6a4a; }
+
+/* PLACEMENT: the bubble floats ABOVE the enemy's frame, so big enemies (bosses) never cover it
+   and it never covers them. The frame keeps a little room at the top for it. */
+.enemy > .intent.intent-bubble { position: absolute; left: 50%; bottom: 100%; translate: -50% 0; margin: 0 0 12px; white-space: nowrap; z-index: 4; }
+/* Gentle, slow drift: left to right and back over 7s with a small bob, always centred on the enemy.
+   (The generic intent-bob in juice.css reset the -50% centring, so the bubble jumped half its width every 2s.) */
+.enemy > .intent.intent-bubble { animation: ib-drift 7s ease-in-out infinite; }
+.enemy:nth-child(2) > .intent.intent-bubble { animation-delay: -2.3s; } .enemy:nth-child(3) > .intent.intent-bubble { animation-delay: -4.6s; }
+@keyframes ib-drift { 0%, 100% { translate: calc(-50% - 8px) 0; } 25% { translate: -50% -3px; } 50% { translate: calc(-50% + 8px) 0; } 75% { translate: -50% -3px; } }
+@media (prefers-reduced-motion: reduce) { .enemy > .intent.intent-bubble { animation: none !important; translate: -50% 0; } }
+.enemies { padding-top: 70px; box-sizing: border-box; }
+/* The sprite is drawn bigger than its layout box (scale), so it used to poke out of the frame
+   and run into the bubble. Room is reserved above it: --sh = the shape's height, --sk = the extra scale. */
+.sprite { --sh: 90px; }
+.sprite.rat { --sh: 60px; } .sprite.tall { --sh: 120px; } .sprite.crab { --sh: 65px; } .sprite.long { --sh: 45px; }
+.enemy { --sk: .35; }
+.enemy .sprite { margin-top: calc(14px + var(--sh) * var(--s) * var(--sk)); }
+@media (max-height: 820px) {
+  .enemy { --sk: .2; }
+  .enemy .sprite { margin-top: calc(10px + var(--sh) * var(--s) * var(--sk)); }
+}
+/* Big enemies (bosses, --es > 1) are scaled down a little as a whole, so they and their bubble fit the cave. */
+.enemy[style*="--es"] { transform: scale(calc(1.22 - (var(--es) - 1) * .5)); }
+@media (max-height: 820px) { .enemy[style*="--es"] { transform: scale(calc(1.05 - (var(--es) - 1) * .45)); } }

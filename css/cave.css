@@ -1,0 +1,51 @@
+/* CAVE BACKDROP behind the battle (js/ui/caveBackdrop.js, colors in js/data/caveData.js).
+   --cv-t: negative delay so loops continue across re-renders. --cv-light lantern color, --cv-glow moss/crystal color. */
+.cave { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
+.cv-svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+
+/* moss / crystals breathe softly */
+.cv-glow { animation: cv-glow 5s ease-in-out infinite; }
+@keyframes cv-glow { 0%,100% { opacity: .65; } 50% { opacity: 1; } }
+.cv-root { transform-box: fill-box; transform-origin: 50% 0; animation: cv-root 7s ease-in-out infinite; }
+@keyframes cv-root { 0%,100% { transform: rotate(-2deg); } 50% { transform: rotate(2deg); } }
+.cv-ripple { transform-box: fill-box; transform-origin: center; animation: cv-ripple 4s ease-in-out infinite; animation-delay: var(--cv-t); }
+@keyframes cv-ripple { 0%,100% { transform: scale(.85); opacity: .2; } 50% { transform: scale(1.05); opacity: .6; } }
+
+/* a pale shaft of light from a crack in the ceiling */
+.cv-shaft { position: absolute; top: -10%; left: 46%; width: 22%; height: 120%; transform: skewX(-14deg); opacity: .5;
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--cv-light) 14%, transparent) 35%, color-mix(in srgb, var(--cv-light) 20%, transparent) 50%, color-mix(in srgb, var(--cv-light) 10%, transparent) 65%, transparent);
+  mask-image: linear-gradient(#000 0, rgba(0,0,0,.6) 60%, transparent 95%); -webkit-mask-image: linear-gradient(#000 0, rgba(0,0,0,.6) 60%, transparent 95%);
+  animation: cv-shaft 9s ease-in-out infinite; animation-delay: var(--cv-t); }
+@keyframes cv-shaft { 0%,100% { opacity: .35; } 50% { opacity: .6; } }
+
+/* hanging lanterns: chain, lamp, flickering pool of light */
+.cv-lantern { position: absolute; top: 0; width: 0; transform-origin: 0 0; animation: cv-swing 6s ease-in-out infinite; }
+@keyframes cv-swing { 0%,100% { transform: rotate(-3deg); } 50% { transform: rotate(3deg); } }
+.cv-chain { position: absolute; left: -1px; top: 0; width: 2px; height: var(--len); background: repeating-linear-gradient(#6a5a40 0 4px, #2a2218 4px 6px); }
+.cv-lamp { position: absolute; left: -12px; top: var(--len); width: 24px; height: 32px; border-radius: 4px 4px 6px 6px; border: 2px solid #4a3a22;
+  background: radial-gradient(circle at 50% 60%, #fff4cf, var(--cv-light) 45%, color-mix(in srgb, var(--cv-light) 40%, #000) 100%);
+  box-shadow: 0 0 22px 8px color-mix(in srgb, var(--cv-light) 70%, transparent); animation: cv-flicker 2.3s infinite; animation-delay: inherit; }
+.cv-lamp::before { content: ''; position: absolute; left: -4px; right: -4px; top: -6px; height: 5px; background: #4a3a22; border-radius: 3px 3px 0 0; }
+.cv-light { position: absolute; left: -260px; top: calc(var(--len) - 230px); width: 520px; height: 520px; border-radius: 50%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--cv-light) 45%, transparent), color-mix(in srgb, var(--cv-light) 16%, transparent) 35%, transparent 70%);
+  mix-blend-mode: screen; animation: cv-flicker 2.3s infinite; animation-delay: inherit; }
+@keyframes cv-flicker { 0%,100% { opacity: 1; } 12% { opacity: .82; } 20% { opacity: .95; } 47% { opacity: .78; } 55% { opacity: 1; } 80% { opacity: .88; } }
+
+/* drifting fog near the floor */
+.cv-fog { position: absolute; left: -20%; right: -20%; bottom: 0; height: 32%;
+  background: radial-gradient(ellipse at 30% 80%, rgba(200,200,220,.10), transparent 60%), radial-gradient(ellipse at 75% 90%, rgba(200,200,220,.08), transparent 55%);
+  animation: cv-fog 26s ease-in-out infinite alternate; animation-delay: var(--cv-t); }
+.cv-fog2 { height: 22%; opacity: .7; animation-duration: 34s; animation-direction: alternate-reverse; }
+@keyframes cv-fog { from { transform: translateX(-6%); } to { transform: translateX(6%); } }
+
+/* floating particles: spores drift up, bubbles rise, embers rise and glow */
+.cv-motes { position: absolute; inset: 0; }
+.cv-mote { position: absolute; bottom: -10px; width: var(--sz); height: var(--sz); border-radius: 50%; background: var(--cv-glow); opacity: 0;
+  box-shadow: 0 0 6px var(--cv-glow); animation: cv-rise var(--d) linear infinite; }
+.cv-bubbles .cv-mote { background: transparent; border: 1px solid color-mix(in srgb, var(--cv-glow) 70%, #fff); box-shadow: none; }
+.cv-embers .cv-mote { background: #ffb060; box-shadow: 0 0 8px #ff7a2a; border-radius: 1px; }
+@keyframes cv-rise { 0% { transform: translate(0, 0); opacity: 0; } 15% { opacity: .8; } 80% { opacity: .5; } 100% { transform: translate(var(--dx), -480px); opacity: 0; } }
+
+.cv-vignette { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 55%, transparent 45%, rgba(0,0,0,.65) 100%); }
+
+@media (prefers-reduced-motion: reduce) { .cave * { animation: none !important; } }

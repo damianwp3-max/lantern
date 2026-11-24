@@ -1,0 +1,71 @@
+/* MAIN CHARACTER: size and the idle loop (breathing, sway, flowing hair, blink,
+   lantern). Pivot points match JOINTS in js/data/characterArt.js. Poses (throw, defend, cast, hurt, cheer) are in characterPoses.css.
+   Every idle part uses calc(var(--mc-t) + offset) as delay, see js/ui/character.js. */
+.mc { --mc-h: 240px; --mc-t: 0s; --mc-p: 0s; display: inline-block; height: var(--mc-h); aspect-ratio: 200 / 350; cursor: pointer; position: relative; }
+.mc-svg { width: 100%; height: 100%; overflow: visible; display: block; }
+.mc-svg g:not([transform]) { transform-box: fill-box; }   /* groups with a transform attribute (mirrored parts) keep normal SVG origins */
+
+/* parts that turn around a joint use exact viewBox points */
+.mc-figure, .mc-upper, .mc-coat-back, .mc-head, .mc-arm-l, .mc-arm-r, .mc-torso { transform-box: view-box !important; }
+
+/* whole body: gentle sway from the feet */
+.mc-figure { transform-origin: 100px 336px; animation: mc-sway 6s ease-in-out infinite; animation-delay: var(--mc-t); }
+@keyframes mc-sway { 0%,100% { transform: rotate(-.8deg); } 50% { transform: rotate(.8deg); } }
+
+/* breathing: upper body bobs, chest swells a little */
+.mc-upper, .mc-coat-back { transform-origin: 100px 190px; animation: mc-breathe 3.2s ease-in-out infinite; animation-delay: var(--mc-t); }
+@keyframes mc-breathe { 0%,100% { transform: translateY(0) scale(1, 1); } 50% { transform: translateY(-2.4px) scale(1.006, 1.01); } }
+.mc-torso { transform-origin: 100px 108px; animation: mc-chest 3.2s ease-in-out infinite; animation-delay: var(--mc-t); }
+@keyframes mc-chest { 0%,100% { transform: scale(1, 1); } 50% { transform: scale(1.015, 1.012); } }
+
+/* head: slow tilt with a little head-tilt now and then */
+.mc-head { transform-origin: 100px 96px; animation: mc-head 9s ease-in-out infinite; animation-delay: calc(var(--mc-t) - .4s); }
+@keyframes mc-head { 0%,100% { transform: rotate(1deg); } 30% { transform: rotate(-1deg); } 55% { transform: rotate(-1deg); } 62% { transform: rotate(5deg); } 74% { transform: rotate(5deg); } 82% { transform: rotate(0deg); } }
+
+/* arms swing a little with the breath (shoulders differ per view) */
+.mc-arm-l, .mc-arm-r { animation: mc-arm 3.2s ease-in-out infinite; animation-delay: var(--mc-t); }
+.mc-arm-r { animation-direction: reverse; }
+.view-front .mc-arm-l, .view-back .mc-arm-r { transform-origin: 76px 112px; }
+.view-front .mc-arm-r, .view-back .mc-arm-l { transform-origin: 124px 112px; }
+@keyframes mc-arm { 0%,100% { transform: rotate(0); } 50% { transform: rotate(1.6deg); } }
+
+/* hair: the long hair sways a beat later, the side locks swing gently */
+.mc-hair-back { transform-origin: 50% 0%; animation: mc-hair 6s ease-in-out infinite; animation-delay: calc(var(--mc-t) - .9s); }
+@keyframes mc-hair { 0%,100% { transform: skewX(1.2deg); } 50% { transform: skewX(-1.2deg); } }
+.mc-lock-l, .mc-lock-r { transform-origin: 50% 0%; animation: mc-lock 3.2s ease-in-out infinite; animation-delay: calc(var(--mc-t) - .5s); }
+.mc-lock-r { animation-delay: calc(var(--mc-t) - 1.3s); }
+@keyframes mc-lock { 0%,100% { transform: rotate(0); } 40% { transform: rotate(-2deg); } 70% { transform: rotate(2deg); } }
+
+/* blink: about every 4.5 s, with a quick double blink now and then */
+.mc-eyes { transform-origin: 50% 45%; animation: mc-blink 4.5s infinite; animation-delay: var(--mc-t); }
+.mc-eyes-closed { opacity: 0; animation: mc-blink-line 4.5s infinite; animation-delay: var(--mc-t); }
+.mc-eyes-hurt { opacity: 0; }
+@keyframes mc-blink { 0%,88%,92%,100% { transform: scaleY(1); } 90% { transform: scaleY(.05); } }
+@keyframes mc-blink-line { 0%,88.5%,91.5%,100% { opacity: 0; } 89%,91% { opacity: 1; } }
+
+/* lantern swings and flickers */
+.mc-lantern { transform-origin: 50% 0%; animation: mc-lantern 3s ease-in-out infinite; animation-delay: var(--mc-t); }
+@keyframes mc-lantern { 0%,100% { transform: rotate(-5deg); } 50% { transform: rotate(5deg); } }
+.mc-lantern-halo { transform-box: fill-box; transform-origin: center; animation: mc-flicker 1.7s ease-in-out infinite; animation-delay: var(--mc-t); }
+.mc-lantern-flame { transform-box: fill-box; transform-origin: 50% 100%; animation: mc-flame .9s ease-in-out infinite alternate; animation-delay: var(--mc-t); }
+@keyframes mc-flicker { 0%,100% { opacity: .85; } 30% { opacity: .55; } 60% { opacity: 1; } 80% { opacity: .7; } }
+@keyframes mc-flame { from { transform: scale(1, 1); } to { transform: scale(.85, 1.12); } }
+
+/* shadow follows the sway */
+.mc-shadow { transform-box: fill-box; transform-origin: center; animation: mc-shadow 6s ease-in-out infinite; animation-delay: var(--mc-t); }
+@keyframes mc-shadow { 0%,100% { transform: translateX(-2px); } 50% { transform: translateX(2px); } }
+
+/* hidden until a pose shows them */
+.mc-shield { opacity: 0; transform-box: fill-box; transform-origin: 50% 60%; pointer-events: none; }
+.mc-held-card { opacity: 0; }
+
+/* turning around: quick squash so the swap does not just pop */
+.mc.turn .mc-svg { animation: mc-turn .25s ease-out; }
+@keyframes mc-turn { 0% { transform: scaleX(.2); } 100% { transform: scaleX(1); } }
+
+@media (prefers-reduced-motion: reduce) { .mc * { animation: none !important; } }
+
+/* where she stands: battle (seen from behind, in the player slot) and main menu (front) */
+.player-unit .mc { position: absolute; left: 10px; bottom: 4px; }
+.player-unit .mc ~ .shadow { display: none; }
+.menu-hero { margin: 4px 0 18px; }

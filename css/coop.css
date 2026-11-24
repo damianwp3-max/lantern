@@ -1,0 +1,96 @@
+/* CO-OP (2 players): the menu panel, the lobby, the teammate on the battlefield, the gift button,
+   the shared cursors. Rules: js/coop/*.js, markup: js/ui/coop/*.js */
+
+/* ---- main menu panel, bottom-right ---- */
+.coop-panel { position: fixed; right: 18px; bottom: 18px; z-index: 20; width: 210px; padding: 10px 12px 12px; border-radius: 12px;
+  background: rgba(20,17,26,.92); border: 1px solid #4a3d58; box-shadow: 0 6px 22px rgba(0,0,0,.55); display: flex; flex-direction: column; gap: 7px; }
+.coop-panel .cp-head { display: flex; align-items: center; justify-content: space-between; font-size: 13px; color: #e8d9b8; }
+.coop-panel .cp-gear { width: 26px; height: 26px; padding: 0; line-height: 1; font-size: 14px; border-radius: 7px; }
+.coop-panel input { width: 100%; box-sizing: border-box; padding: 6px 8px; border-radius: 7px; border: 1px solid #4a3d58; background: #0e0b12; color: #f1e6cf; font: inherit; font-size: 13px; }
+.coop-panel .cp-server { display: none; font-size: 12px; }
+.coop-panel.show-server .cp-server { display: block; }
+.coop-panel .cp-join { display: flex; gap: 6px; }
+.coop-panel .cp-join input { width: 66px; text-transform: uppercase; letter-spacing: 2px; text-align: center; }
+.coop-panel .cp-join .cp-btn { flex: 1; }
+.coop-panel .cp-btn { padding: 6px 8px; font-size: 13px; }
+.coop-panel .cp-msg { font-size: 12px; color: #c9bba0; }
+.coop-panel .cp-msg.err { color: #ff8f7a; }
+
+/* ---- lobby / waiting ---- */
+.coop-lobby .cl-panel { display: inline-block; min-width: 380px; padding: 26px 34px 30px; border-radius: 16px; background: rgba(20,17,26,.9); border: 1px solid #4a3d58; box-shadow: 0 10px 34px rgba(0,0,0,.6); }
+.coop-lobby .cl-code { font-family: Fredoka, sans-serif; font-size: 58px; letter-spacing: 12px; padding-left: 12px; margin: 10px 0 16px; color: #ffd35a; text-shadow: 0 0 18px rgba(255,200,90,.35); user-select: all; }
+.coop-lobby .cl-seats { display: flex; gap: 14px; justify-content: center; margin-bottom: 16px; }
+.coop-lobby .cl-seat { flex: 1; padding: 10px 12px; border-radius: 10px; border: 1px dashed #4a3d58; opacity: .55; display: flex; flex-direction: column; gap: 2px; }
+.coop-lobby .cl-seat.here { border: 1px solid var(--cc); opacity: 1; box-shadow: inset 0 0 14px rgba(255,255,255,.04); }
+.coop-lobby .cl-seat b { color: var(--cc); }
+.coop-lobby .cl-seat span { font-size: 13px; color: #c9bba0; }
+.coop-lobby .cl-note { color: #c9bba0; margin: 8px 0 16px; }
+.coop-lobby .cl-actions { display: flex; gap: 10px; justify-content: center; }
+.coop-lobby .cl-dots { display: flex; gap: 8px; justify-content: center; margin-top: 12px; }
+.coop-lobby .cl-dots i { width: 10px; height: 10px; border-radius: 50%; background: #ffd35a; animation: coopdot 1.2s infinite ease-in-out; }
+.coop-lobby .cl-dots i:nth-child(2) { animation-delay: .2s; } .coop-lobby .cl-dots i:nth-child(3) { animation-delay: .4s; }
+@keyframes coopdot { 0%,80%,100% { opacity: .2; transform: scale(.7); } 40% { opacity: 1; transform: scale(1.1); } }
+
+/* ---- both heroes are a little see-through ---- */
+.player-unit.coop-self .mc { opacity: var(--self-op, .88); }
+.player-unit.coop-self.down .mc, .coop-ally.down .ca-model { filter: grayscale(1) brightness(.7); }
+.coop-ally { position: absolute; z-index: 3; left: 34%; bottom: 14px; width: 190px; cursor: pointer; --ally-op: .62; transition: filter .2s; }
+.coop-ally .ca-model { position: relative; height: 270px; opacity: var(--ally-op); filter: drop-shadow(0 0 14px color-mix(in srgb, var(--cc) 45%, transparent)); pointer-events: none; }
+.coop-ally .ca-model .mc { position: absolute; left: 0; bottom: 0; }
+.coop-ally:hover .ca-model { opacity: .85; }
+.coop-ally.turn .ca-model { opacity: .9; }
+.coop-ally.turn::before { content: ''; position: absolute; left: 10px; right: 10px; bottom: 40px; height: 16px; border-radius: 50%; background: radial-gradient(var(--cc), transparent 70%); opacity: .7; filter: blur(3px); }
+.coop-ally.hit .ca-model { animation: shake .35s; filter: brightness(2) saturate(.4); }
+.coop-ally .ca-plate { position: relative; margin-top: 2px; padding: 5px 8px 6px; border-radius: 9px; background: rgba(18,15,24,.88); border: 1px solid color-mix(in srgb, var(--cc) 55%, #3a3045); }
+.coop-ally .ca-top { display: flex; align-items: baseline; gap: 6px; font-size: 12px; }
+.coop-ally .ca-top b { color: var(--cc); }
+.coop-ally .ca-top span:nth-child(2) { color: #b8aa94; flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.coop-ally .ca-energy { display: inline-flex; align-items: center; gap: 3px; color: #ffe08a; font-weight: bold; }
+.coop-ally .ca-energy i { width: 9px; height: 9px; border-radius: 50%; background: radial-gradient(#fff6c8, #f2a93b); box-shadow: 0 0 6px #f2a93b; }
+.coop-ally .ca-bar { display: flex; align-items: center; gap: 4px; margin-top: 3px; }
+.coop-ally .ca-bar .hpbar { flex: 1; }
+.coop-ally .ca-pets { display: flex; gap: 6px; margin-top: 4px; }
+.coop-ally .ca-pet { position: relative; width: 26px; height: 26px; }
+.coop-ally .ca-pet svg { width: 100%; height: 100%; }
+.coop-ally .ca-pet i { position: absolute; right: -4px; bottom: -4px; font-size: 10px; font-style: normal; background: #120d16; border-radius: 6px; padding: 0 3px; color: #ff9a8f; }
+.ally-float { left: 70px; top: 40px; }
+@media (max-height: 820px) { .coop-ally .ca-model { height: 230px; } .coop-ally { left: 36%; width: 170px; } }
+
+/* ---- turn banner and aim tags ---- */
+.turn-banner { position: absolute; z-index: 6; top: 8px; left: 50%; translate: -50% 0; padding: 4px 18px; border-radius: 14px; font-family: Fredoka, sans-serif; font-size: 15px; letter-spacing: .5px;
+  background: rgba(14,11,18,.82); border: 1px solid #4a3d58; pointer-events: none; animation: bannerIn .35s ease-out; }
+.turn-banner.mine { color: #ffd35a; border-color: #b8923a; }
+.turn-banner.theirs { color: #8fd8ff; border-color: #3f7fa0; }
+.turn-banner.foe { color: #ff9a8f; border-color: #8a3a34; }
+@keyframes bannerIn { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: none; } }
+.aim-tag { position: absolute; z-index: 4; left: 50%; top: -6px; translate: -50% 0; padding: 0 7px; border-radius: 8px; font-size: 11px; font-weight: bold; letter-spacing: .5px;
+  background: rgba(14,11,18,.9); color: var(--cc); border: 1px solid var(--cc); pointer-events: none; }
+.aim-tag.me { box-shadow: 0 0 8px var(--cc); }
+
+/* ---- not your turn ---- */
+.combat-bottom.coop-idle .hand { filter: saturate(.55) brightness(.8); }
+.combat-bottom.coop-idle .end-turn-btn { opacity: .45; }
+
+/* ---- Gift card ---- */
+.gift-btn { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 10px; font-size: 13px; border: 1px solid #a27a2c; background: linear-gradient(#3b2d16, #241a0c); color: #ffe08a; cursor: pointer; }
+.gift-btn:hover:not(:disabled) { filter: brightness(1.2); }
+.gift-btn:disabled { opacity: .4; cursor: default; }
+.gift-btn.on { background: linear-gradient(#7a5a1c, #4d3810); box-shadow: 0 0 12px rgba(255,208,90,.55); animation: giftPulse 1s infinite; }
+@keyframes giftPulse { 50% { box-shadow: 0 0 20px rgba(255,208,90,.85); } }
+.hand.gift-mode .card { cursor: copy; outline: 2px dashed rgba(255,208,90,.7); outline-offset: 2px; }
+.card.gifted { box-shadow: 0 0 0 2px #ffd35a, 0 0 16px rgba(255,208,90,.7); }
+.card.gifted::after { content: '🎁'; position: absolute; top: -8px; right: -6px; font-size: 18px; filter: drop-shadow(0 1px 2px #000); }
+
+/* ---- teammate viewer ---- */
+.ally-view .av-stats { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 12px; }
+.ally-view .av-stat { display: flex; flex-direction: column; min-width: 70px; padding: 6px 12px; border-radius: 9px; background: rgba(255,255,255,.05); border: 1px solid #3a3045; }
+.ally-view .av-stat small { color: #b8aa94; font-size: 11px; } .ally-view .av-stat b { font-size: 18px; color: #ffe08a; }
+
+/* ---- shared cursors ---- */
+.coop-cursor { position: fixed; z-index: 9000; pointer-events: none; translate: -3px -2px; transition: left .06s linear, top .06s linear, opacity .4s; filter: drop-shadow(0 2px 3px rgba(0,0,0,.6)); }
+.coop-cursor span { position: absolute; left: 22px; top: 18px; padding: 0 6px; border-radius: 7px; font-size: 11px; white-space: nowrap; background: var(--cc); color: #120d16; font-weight: bold; }
+.coop-cursor.idle { opacity: .35; }
+.coop-click { position: fixed; z-index: 8999; width: 8px; height: 8px; margin: -4px 0 0 -4px; border-radius: 50%; border: 2px solid var(--cc); pointer-events: none; animation: coopClick .6s ease-out forwards; }
+@keyframes coopClick { to { transform: scale(5); opacity: 0; } }
+
+.coop-toast { position: fixed; z-index: 9500; left: 50%; bottom: 120px; translate: -50% 0; padding: 8px 18px; border-radius: 12px; background: rgba(14,11,18,.95); border: 1px solid #b8923a; color: #ffe08a; animation: bannerIn .25s ease-out; }

@@ -1,0 +1,16 @@
+/* REST SITE SCREEN */
+.rest-site { text-align: center; margin-top: 24px; }
+.rest-options { display: flex; gap: 14px; justify-content: center; align-items: stretch; flex-wrap: wrap; margin-top: 18px; }
+.rest-or { align-self: center; color: var(--muted); font-style: italic; }
+.rest-option { width: 170px; padding: 14px 10px; background: linear-gradient(#211e29, #17151c); border: 2px solid var(--line); border-radius: 8px; cursor: pointer; transition: transform .12s, border-color .12s, box-shadow .12s; }
+.rest-option:hover { transform: translateY(-6px); box-shadow: 0 8px 18px rgba(0,0,0,.6); }
+.rest-option.heal { border-color: #3f6a46; } .rest-option.heal:hover { border-color: #5fae6a; }
+.rest-option.passive { border-color: #6a5530; } .rest-option.passive:hover { border-color: var(--gold); }
+.rest-icon { font-size: 30px; color: var(--gold); }
+.rest-option.heal .rest-icon { color: #5fae6a; }
+.rest-title { font-weight: bold; margin: 6px 0; }
+.rest-text { font-size: 13px; min-height: 48px; }
+.rest-tag { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 8px; }
+/* the camp picture above the options: css/camp.css */
+.rest-icon { min-height: 44px; display: flex; align-items: center; justify-content: center; }
+.rest-title.oil-title { font-size: 1.12em; }

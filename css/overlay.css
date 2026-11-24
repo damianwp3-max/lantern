@@ -1,0 +1,24 @@
+/* OVERLAY window (js/ui/overlay.js) + pile viewer and active effects list (js/ui/viewers/*.js) */
+.overlay { position: fixed; inset: 0; z-index: 200; background: rgba(5,4,8,.78); backdrop-filter: blur(3px); display: flex; align-items: center; justify-content: center; animation: fadein .2s ease-out; }
+.overlay-panel { width: min(640px, 92vw); max-height: 86vh; display: flex; flex-direction: column; background: linear-gradient(#1d1924, #121016); border: 1px solid #4a4256; border-radius: 12px; box-shadow: 0 20px 60px rgba(0,0,0,.8); }
+.overlay-panel.wide { width: min(1180px, 94vw); }
+.overlay-head { display: flex; align-items: baseline; gap: 14px; padding: 12px 18px; border-bottom: 1px solid var(--line); }
+.overlay-head h2 { margin: 0; font-size: 22px; }
+.overlay-close { margin-left: auto; padding: 4px 11px; font-size: 16px; }
+.overlay-body { overflow-y: auto; padding: 16px 18px 20px; }
+
+.pile-grid { display: flex; flex-wrap: wrap; gap: 18px 14px; justify-content: center; padding-top: 8px; }
+.pile-grid .card { cursor: default; }
+.pile-empty { text-align: center; padding: 30px; }
+
+.pw-list { display: flex; flex-direction: column; gap: 8px; }
+.pw-section { margin: 10px 0 2px; font-size: 13px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--muted); }
+.pw-section:first-child { margin-top: 0; }
+.pw-row { --tip: #c49ae8; display: flex; gap: 12px; align-items: center; padding: 8px 10px; border-radius: 8px; background: rgba(255,255,255,.03); border-left: 3px solid var(--tip); }
+.pw-pic { flex: none; width: 76px; display: flex; justify-content: center; }
+.pw-art { position: relative; width: 76px; height: 50px; border-radius: 6px; overflow: hidden; border: 1px solid color-mix(in srgb, var(--tip) 50%, transparent); }
+.pw-art .art { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 55%, color-mix(in srgb, var(--art) 30%, transparent), rgba(0,0,0,.45) 78%), #141118; }
+.pw-art svg { width: 100%; height: 100%; }
+.pw-glyph { font-size: 26px; color: var(--tip); }
+.pw-title { font-weight: bold; color: var(--tip); }
+.pw-text { font-size: 13px; color: #ddd4e4; }

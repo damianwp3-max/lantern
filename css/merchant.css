@@ -1,0 +1,17 @@
+/* MERCHANT BUG idle animation (art: js/ui/merchantArt.js, palette: js/data/merchantArtData.js) */
+.merchant-svg .mb-body { animation: mb-bob 3.2s ease-in-out infinite; transform-origin: 60px 118px; }
+.merchant-svg .mb-head { animation: mb-tilt 6s ease-in-out infinite; transform-origin: 59px 70px; }
+.merchant-svg .mb-ant-l { animation: mb-ant 2.6s ease-in-out infinite; transform-origin: 50px 32px; }
+.merchant-svg .mb-ant-r { animation: mb-ant 2.6s ease-in-out infinite reverse; transform-origin: 68px 32px; }
+.merchant-svg .mb-eyes { animation: mb-blink 5s infinite; transform-origin: 59px 51px; }
+.merchant-svg .m-flame { animation: flare-flick 1.2s ease-in-out infinite; transform-origin: 106.5px 81px; }
+
+@keyframes mb-bob { 0%, 100% { transform: translateY(0) scaleY(1); } 50% { transform: translateY(1.5px) scaleY(.985); } }
+@keyframes mb-tilt { 0%, 100% { transform: rotate(0); } 30% { transform: rotate(-4deg); } 60% { transform: rotate(2deg); } }
+@keyframes mb-ant { 0%, 100% { transform: rotate(0); } 50% { transform: rotate(6deg); } }
+@keyframes mb-blink { 0%, 93%, 100% { transform: scaleY(1); } 96% { transform: scaleY(.1); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .merchant-svg .mb-body, .merchant-svg .mb-head, .merchant-svg .mb-ant-l,
+  .merchant-svg .mb-ant-r, .merchant-svg .mb-eyes { animation: none; }
+}

@@ -1,0 +1,4 @@
+/* SERVICE ICONS (js/ui/serviceIcons.js): big SVG icons on rest-site options and merchant services */
+.svc-ico { display: block; margin: 0 auto; overflow: visible; filter: drop-shadow(0 2px 3px rgba(0,0,0,.55)); }
+.rest-icon .svc-ico { width: 44px; height: 44px; }
+.ss-icon .svc-ico { width: 32px; height: 32px; }

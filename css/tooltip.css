@@ -1,0 +1,16 @@
+/* TOOLTIPS (js/ui/tooltip.js): one floating layer; several boxes stack for card keywords. --tip = accent color */
+.tip-layer { position: fixed; z-index: 300; pointer-events: none; display: flex; flex-direction: column; gap: 6px; max-width: 280px; opacity: 0; transition: opacity .12s; }
+.tip-layer.show { opacity: 1; }
+.tip-layer.side { width: 240px; }
+.tip { --tip: #d9a441; background: linear-gradient(#211d2a, #141118); border: 1px solid color-mix(in srgb, var(--tip) 55%, #000); border-left: 3px solid var(--tip);
+  border-radius: 8px; padding: 8px 11px 9px; box-shadow: 0 8px 22px rgba(0,0,0,.7); font-size: 13px; line-height: 1.4; color: #e4dcea; animation: tip-in .14s ease-out; }
+@keyframes tip-in { from { transform: translateY(4px); opacity: 0; } to { transform: none; opacity: 1; } }
+.tip-head { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+.tip-icon { width: 26px; height: 26px; flex: none; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 15px;
+  color: var(--tip); background: color-mix(in srgb, var(--tip) 16%, #0d0c10); border: 1px solid color-mix(in srgb, var(--tip) 50%, transparent); }
+.tip-title { font-weight: bold; color: var(--tip); font-size: 14px; }
+.tip-label { font-size: 10px; text-transform: uppercase; letter-spacing: 1.2px; color: var(--muted); }
+.tip-text { color: #ddd4e4; }
+body.dragging-card .tip-layer { display: none; }
+[data-tip] { cursor: help; }
+button[data-tip], [data-action][data-tip] { cursor: pointer; }

@@ -1,0 +1,88 @@
+/* PETS: companions on the battlefield (js/ui/pets/petView.js), their idle loops
+   (js/ui/pets/petArt.js), the Magpie's marked card, and pet events.
+   --pc = the pet's colour, --pa = its accent (data/petsData.js). */
+.pet-unit { position: absolute; z-index: 4; width: 132px; display: flex; flex-direction: column; align-items: center; pointer-events: auto; }
+.pet-unit.slot-0 { left: 330px; bottom: 150px; }
+.pet-unit.slot-1 { left: 452px; bottom: 84px; }
+.pet-unit.slot-2 { left: 456px; bottom: 236px; }
+.pet-fly { width: 104px; height: 78px; animation: pet-bob 2.8s ease-in-out infinite; animation-delay: var(--bob-d, 0s);
+  filter: drop-shadow(0 6px 6px rgba(0,0,0,.55)) drop-shadow(0 0 10px color-mix(in srgb, var(--pc) 35%, transparent)); transition: filter .2s; }
+.pet-unit:hover .pet-fly { filter: drop-shadow(0 6px 6px rgba(0,0,0,.55)) drop-shadow(0 0 16px color-mix(in srgb, var(--pc) 70%, transparent)); }
+.pet-svg { width: 100%; height: 100%; overflow: visible; }
+.pet-glow { position: absolute; top: 6px; left: 50%; width: 96px; height: 64px; translate: -50% 0; border-radius: 50%; pointer-events: none;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--pc) 26%, transparent), transparent); }
+@keyframes pet-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+
+/* nameplate: same family as the Bat's, tinted with the pet's colour */
+.pet-plate { position: relative; margin-top: 1px; width: 130px; padding: 3px 7px 5px; border-radius: 9px; text-align: center;
+  background: linear-gradient(rgba(34,26,40,.94), rgba(16,12,20,.94)); border: 1px solid color-mix(in srgb, var(--pc) 60%, #000);
+  box-shadow: 0 4px 10px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.07); }
+.pet-plate::before { content: ''; position: absolute; left: 50%; top: -4px; width: 8px; height: 8px; translate: -50% 0; rotate: 45deg;
+  background: var(--pc); border: 1px solid #120a14; box-shadow: 0 0 6px var(--pc); }
+.pet-name { display: block; font-family: var(--font-display); font-size: 11px; color: var(--pa); letter-spacing: .2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pet-plate .pl-bar { display: flex; align-items: center; gap: 4px; }
+.pet-plate .hpbar { flex: 1; height: 13px; }
+.pet-plate .hp-text { font-size: 10px; line-height: 12px; }
+
+/* the trick chip under the HP bar */
+.pet-chip { display: inline-flex; align-items: center; gap: 3px; margin-top: 4px; padding: 1px 7px; border-radius: 9px; font-size: 10.5px; font-weight: 700;
+  color: var(--pa); background: color-mix(in srgb, var(--pc) 18%, #0d0a10); border: 1px solid color-mix(in srgb, var(--pc) 45%, transparent); max-width: 108px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pet-chip.heat i { width: 9px; height: 9px; border-radius: 50%; background: #2a1810; border: 1px solid #6a3010; }
+.pet-chip.heat i.on { background: radial-gradient(circle at 35% 35%, #fff0a0, #ff7a2a); border-color: #ffb36a; box-shadow: 0 0 6px #ff8a2a; }
+.pet-chip.gold { color: #ffe08a; }
+
+/* idle loops of the drawings */
+.pa-tail { transform-box: fill-box; transform-origin: 100% 50%; animation: pa-tail 2.2s ease-in-out infinite; }
+.pa-head { transform-box: fill-box; transform-origin: 30% 80%; animation: pa-head 3.4s ease-in-out infinite; }
+.pa-blink { transform-box: fill-box; transform-origin: 50% 50%; animation: pa-blink 4.2s infinite; }
+.pa-stalk { transform-box: fill-box; transform-origin: 30% 100%; animation: pa-head 3s ease-in-out infinite; }
+.pa-lid { transform-box: fill-box; transform-origin: 10% 100%; animation: pa-lid 1.8s ease-in-out infinite; }
+.pa-coins { animation: pa-coins 1.8s ease-in-out infinite; }
+.pa-whisk { transform-box: fill-box; transform-origin: 0 50%; animation: pa-head .9s ease-in-out infinite; }
+.pa-wing-l { transform-box: fill-box; transform-origin: 100% 0; animation: pa-wing 3s ease-in-out infinite; }
+.pa-wing-r { transform-box: fill-box; transform-origin: 0 0; animation: pa-wing 3s ease-in-out infinite reverse; }
+.pa-glow, .pa-ember { animation: pa-glow 2.4s ease-in-out infinite; }
+.pa-sway { transform-box: view-box; transform-origin: 60px 0; animation: pa-sway 3.6s ease-in-out infinite; }
+@keyframes pa-tail { 0%, 100% { rotate: -6deg; } 50% { rotate: 8deg; } }
+@keyframes pa-head { 0%, 100% { rotate: -3deg; } 50% { rotate: 4deg; } }
+@keyframes pa-blink { 0%, 93%, 100% { scale: 1 1; } 96% { scale: 1 .1; } }
+@keyframes pa-lid { 0%, 100% { rotate: 0deg; } 50% { rotate: -7deg; } }
+@keyframes pa-coins { 0%, 100% { translate: 0 0; opacity: .9; } 50% { translate: 0 -4px; opacity: 1; } }
+@keyframes pa-wing { 0%, 100% { rotate: 0deg; } 50% { rotate: 6deg; } }
+@keyframes pa-glow { 0%, 100% { opacity: .55; } 50% { opacity: 1; } }
+@keyframes pa-sway { 0%, 100% { rotate: -5deg; } 50% { rotate: 5deg; } }
+
+/* arriving, getting hit, falling */
+.pet-unit.summoned .pet-fly { animation: pet-in .55s cubic-bezier(.2,.9,.3,1.3) backwards, pet-bob 2.8s ease-in-out .55s infinite; }
+@keyframes pet-in { from { opacity: 0; transform: translateY(30px) scale(.2); } }
+.pet-unit.hit .pet-fly { animation: pet-hit .42s ease-out, pet-bob 2.8s ease-in-out .42s infinite; }
+@keyframes pet-hit { 0% { filter: brightness(3); transform: translateX(0); } 30% { transform: translateX(-8px) rotate(-8deg); } 60% { transform: translateX(6px); } 100% { filter: none; } }
+.pet-unit.dying { pointer-events: none; }
+.pet-unit.dying .pet-fly { animation: pet-fall .8s ease-in forwards; }
+.pet-unit.dying .pet-plate { animation: bat-fade .6s ease-in forwards; }
+@keyframes pet-fall { 100% { transform: translateY(40px) scale(.4) rotate(-40deg); opacity: 0; } }
+
+/* tricks going off */
+.pet-unit[class*="act-"] .pet-fly { animation: pet-act .5s cubic-bezier(.3,1.6,.5,1); }
+.pet-unit.act-fire .pet-glow, .pet-unit.act-spark .pet-glow { animation: pet-flare .7s ease-out; }
+@keyframes pet-act { 40% { transform: scale(1.18) translateY(-6px); } }
+@keyframes pet-flare { 30% { transform: scale(2.2); opacity: 1; filter: brightness(2); } }
+
+/* the Magpie's marked card */
+.hand .card.pet-shiny { box-shadow: 0 0 0 2px #bcd8ff, 0 0 22px 4px rgba(127,182,255,.75); }
+.hand .card.pet-shiny::after { content: '✧'; position: absolute; top: -14px; right: -8px; z-index: 6; width: 28px; height: 28px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; font-size: 16px; color: #fff; background: radial-gradient(circle at 35% 30%, #a8ccff, #2a4a9a);
+  border: 1.5px solid #e8f2ff; box-shadow: 0 0 10px #7fb6ff; animation: pa-glow 1.4s ease-in-out infinite; }
+
+/* pet in tooltips */
+.tip-pet { width: 40px; height: 30px; flex: none; }
+.tip-pet .pet-svg { width: 40px; height: 30px; }
+
+/* pet events: the pet in the medallion, its card beside the options */
+.event-icon.pet-portrait { width: 132px; height: 112px; border-radius: 50% / 46%; border-color: color-mix(in srgb, var(--pc) 70%, #000);
+  box-shadow: 0 0 34px color-mix(in srgb, var(--pc) 40%, transparent); background: radial-gradient(circle at 50% 45%, color-mix(in srgb, var(--pc) 22%, #2a2236), #120f18 72%); }
+.event-icon.pet-portrait .pet-svg { width: 104px; height: 78px; }
+.event-screen.has-pet { max-width: 1040px; display: flex; gap: 34px; align-items: center; justify-content: center; }
+.event-screen.has-pet .event-card { flex: 1; min-width: 0; }
+.pet-offer { flex: none; display: flex; flex-direction: column; align-items: center; gap: 8px; animation: fadein .5s ease-out .15s backwards; }
+.po-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }

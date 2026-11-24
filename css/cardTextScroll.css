@@ -1,0 +1,4 @@
+/* Long card descriptions scroll on hover (js/ui/cardTextScroll.js). The span centres itself with auto margins,
+   so a short text stays centred and a long one starts at the top and can be scrolled. */
+.card .text { overflow: hidden; align-items: stretch; }
+.card .text > span { margin: auto; }

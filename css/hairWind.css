@@ -1,0 +1,6 @@
+/* HAIR WIND: six back-view hair strands (js/ui/hairWind.js, numbers in js/data/hairWindData.js).
+   Each strand pivots at its own top, the lower part at the knee. The keyframes are generated per
+   strand (same gust for all, own wiggle), so only the shared settings live here. */
+.hw-strand, .hw-tip { transform-box: fill-box; transform-origin: 50% 0; animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite; animation-delay: var(--mc-t, 0s); }
+@media (prefers-reduced-motion: reduce) { .hw-strand, .hw-tip { animation: none !important; } }

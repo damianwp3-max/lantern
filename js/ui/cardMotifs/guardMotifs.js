@@ -1,0 +1,34 @@
+// CARD DRAWINGS: shields, wards and defenses (one unique picture per card; see data/cardIconsData.js).
+(function () {
+  const M = Game.UI.cardArt.registerMotif, K = Game.UI.cardArt.kit, { W, D, L } = K;
+  const sh = (cx, cy, s, c, op = .25) => `<path d="${K.shieldPath(cx, cy, s)}" fill="${c}" fill-opacity="${op}" stroke="${c}" stroke-width="2.2"/>`;
+
+  M('doubleShield', c => `<g opacity=".6">${sh(40, 26, .85, c)}</g>${sh(58, 25, .95, c, .35)}<text x="58" y="30" text-anchor="middle" font-size="11" font-weight="700" fill="${W}">×2</text>`);
+  M('patch', c => `${sh(50, 25, 1, c, .2)}<rect x="38" y="12" width="12" height="10" fill="#8a6a4a" stroke="${L}" stroke-width=".8" transform="rotate(-8 44 17)"/><rect x="52" y="26" width="11" height="11" fill="#6a7a5a" stroke="${L}" stroke-width=".8" transform="rotate(10 57 31)"/>
+    <path d="M38 13 l2 2 M42 12 l2 2 M53 27 l2 2 M57 26 l2 2" stroke="${W}" stroke-width=".8"/><path d="M72 12 Q84 14 86 26" stroke="${c}" stroke-width="1.2" fill="none" stroke-dasharray="2 2"/>`);
+  M('lanternShield', c => `${sh(50, 25, 1.05, c, .15)}<g transform="translate(0 4)">${K.lantern(50, 22, .9, '#ffd35a')}</g><circle cx="50" cy="24" r="16" fill="#ffd35a" opacity=".08"/>`);
+  M('targetShield', c => `${sh(50, 25, 1, c, .2)}<path d="M50 6 V14 M50 36 V44 M32 25 H40 M60 25 H68" stroke="${W}" stroke-width="1.6"/><circle cx="50" cy="25" r="5" fill="none" stroke="${W}" stroke-width="1.4"/><circle cx="50" cy="25" r="1.6" fill="${c}"/>`);
+  M('chipStack', c => [0, 1, 2, 3, 4].map(i => `<ellipse cx="44" cy="${40 - i * 5}" rx="16" ry="5" fill="${i % 2 ? c : W}" stroke="${L}" stroke-width="1"/>`).join('') +
+    `<ellipse cx="44" cy="20" rx="16" ry="5" fill="${c}" stroke="${L}" stroke-width="1"/><ellipse cx="44" cy="20" rx="8" ry="2.4" fill="none" stroke="${W}" stroke-width="1" stroke-dasharray="2 2"/>${sh(80, 26, .6, '#6f9be0', .3)}`);
+  M('crestShield', c => `${sh(50, 25, 1.05, c, .25)}<path d="M50 5 V45 M34 18 H66" stroke="${c}" stroke-width="1.4"/><path d="M38 9 L42 14 L46 9 M54 32 Q58 26 62 32 Q58 38 54 32Z" fill="${W}"/><circle cx="42" cy="32" r="3" fill="${W}"/><path d="M58 10 L62 16 L66 10Z" fill="${W}"/>`);
+  M('alarmShield', c => `${sh(50, 25, 1, c, .25)}<rect x="47.5" y="11" width="5" height="16" rx="2.5" fill="${W}"/><circle cx="50" cy="34" r="3" fill="${W}"/><path class="art-flicker" d="M22 10 L16 6 M24 22 H16 M78 10 L84 6 M76 22 H84" stroke="#ff6a5a" stroke-width="2" stroke-linecap="round"/>`);
+  M('buckler', c => `<circle cx="50" cy="25" r="18" fill="#9aa0b0" stroke="${L}" stroke-width="1.4"/><circle cx="50" cy="25" r="13" fill="none" stroke="${c}" stroke-width="1.6"/><circle cx="50" cy="25" r="5" fill="${c}" stroke="${L}" stroke-width="1"/><path d="M38 14 Q44 9 52 9" stroke="${W}" stroke-width="1.6" fill="none" opacity=".7"/>`);
+  M('mirrorShards', c => [[34, 14, -12], [52, 30, 8], [66, 12, 20], [44, 36, -30], [70, 34, 40]].map(([x, y, r]) => `<path d="M${x} ${y - 8} L${x + 7} ${y + 2} L${x - 4} ${y + 8}Z" fill="${c}" fill-opacity=".35" stroke="${W}" stroke-width="1.1" transform="rotate(${r} ${x} ${y})"/>`).join('') + `<path d="M20 46 H80" stroke="${c}" stroke-width="1" opacity=".5"/>`);
+  M('crackedMirror', c => `<ellipse cx="44" cy="20" rx="15" ry="16" fill="${c}" fill-opacity=".25" stroke="#c8b070" stroke-width="2.4"/><path d="M44 36 V46" stroke="#c8b070" stroke-width="4" stroke-linecap="round"/>
+    <path d="M36 8 L44 18 L40 24 L48 30 M44 18 L54 16" stroke="${W}" stroke-width="1.2" fill="none"/><path d="M68 14 L76 22 M80 10 L76 22 L86 28" stroke="${c}" stroke-width="1.4"/>`);
+  M('smoke', c => [[30, 30, 12], [50, 22, 15], [70, 30, 12], [42, 38, 10], [60, 38, 10]].map(([x, y, r], i) => `<circle cx="${x}" cy="${y}" r="${r}" fill="${c}" opacity="${.25 + (i % 3) * .1}" class="${i % 2 ? 'art-float' : ''}"/>`).join('') + `<path d="M50 6 L42 28 H58Z" fill="${D}" opacity=".5"/>`);
+  M('oldLantern', c => `<path d="M50 2 Q42 2 42 8 M50 2 Q58 2 58 8" stroke="#c8b070" stroke-width="1.4" fill="none"/><path d="M38 9 H62 L66 14 H34Z" fill="#c8b070" stroke="${L}" stroke-width="1"/>
+    <path d="M36 14 H64 L60 40 H40Z" fill="#2a2418" stroke="#c8b070" stroke-width="1.8"/><path d="M50 14 V40 M38 26 H62" stroke="#c8b070" stroke-width="1"/><circle cx="50" cy="27" r="6" fill="${c}" class="art-flicker2"/>
+    <path d="M36 40 H64 L68 45 H32Z" fill="#c8b070" stroke="${L}" stroke-width="1"/><path d="M20 20 Q24 16 28 20 M72 20 Q76 16 80 20" stroke="${c}" stroke-width="1" fill="none" opacity=".6"/>`);
+  M('tower', c => `<path d="M38 46 L40 14 H60 L62 46Z" fill="#4a4458" stroke="${L}" stroke-width="1.2"/><path d="M36 14 H64 V8 H60 V11 H56 V8 H52 V11 H48 V8 H44 V11 H40 V8 H36Z" fill="#5a5468" stroke="${L}" stroke-width="1"/>
+    <rect x="46" y="20" width="8" height="10" rx="4" fill="${c}"/><circle cx="80" cy="12" r="6" fill="#e8e0c0"/><circle cx="83" cy="10" r="5" fill="#1c1922"/>${K.star(18, 10, 2.4, 1, 4, W)}`);
+  M('wheelFort', c => `<path d="M24 34 V16 H32 V20 H38 V16 H46 V20 H52 V16 H60 V20 H66 V16 H74 V34Z" fill="#6a6478" stroke="${L}" stroke-width="1.2"/><rect x="45" y="24" width="8" height="10" rx="4" fill="${D}"/>
+    <g class="art-spin" style="transform-origin:34px 38px"><circle cx="34" cy="38" r="7" fill="${D}" stroke="${c}" stroke-width="2"/><path d="M34 31 V45 M27 38 H41" stroke="${c}" stroke-width="1.2"/></g>
+    <g class="art-spin" style="transform-origin:64px 38px"><circle cx="64" cy="38" r="7" fill="${D}" stroke="${c}" stroke-width="2"/><path d="M64 31 V45 M57 38 H71" stroke="${c}" stroke-width="1.2"/></g><path d="M80 40 H92 M84 34 H94" stroke="${c}" stroke-width="1.4" opacity=".6"/>`);
+  M('owl', c => `<path d="M34 46 Q30 18 50 14 Q70 18 66 46Z" fill="#6a5a48" stroke="${L}" stroke-width="1.2"/><path d="M36 16 L32 6 L44 14 M64 16 L68 6 L56 14" fill="#6a5a48" stroke="${L}" stroke-width="1"/>
+    <circle cx="43" cy="24" r="6" fill="${W}"/><circle cx="57" cy="24" r="6" fill="${W}"/><circle cx="43" cy="24" r="3" fill="${c}"/><circle cx="57" cy="24" r="3" fill="${c}"/><path d="M48 30 L50 34 L52 30Z" fill="#e8a54b"/>
+    <path d="M40 38 Q50 42 60 38" stroke="${W}" stroke-width="1" fill="none" opacity=".5"/><path d="M20 46 H80" stroke="#5a4030" stroke-width="3"/>`);
+  M('glassHeart', c => `<path d="M50 44 C34 34 26 26 28 16 C30 8 42 8 50 16 C58 8 70 8 72 16 C74 26 66 34 50 44Z" fill="${c}" fill-opacity=".25" stroke="${W}" stroke-width="1.6"/>
+    <path d="M36 16 Q38 12 42 12" stroke="${W}" stroke-width="2" fill="none"/><path d="M50 16 L46 26 L54 30 L50 40" stroke="${c}" stroke-width="1.2" fill="none"/><path d="${K.shieldPath(84, 30, .4)}" fill="#6f9be0" fill-opacity=".4" stroke="#6f9be0" stroke-width="1.4"/>`);
+  M('clover', c => `<g transform="translate(50 20)">${K.clover(0, 0, 1.6, c)}</g><circle cx="50" cy="20" r="2.4" fill="${W}" opacity=".7"/>${K.star(80, 10, 3, 1.2, 4, W)}${K.star(20, 36, 2.4, 1, 4, W)}`);
+})();

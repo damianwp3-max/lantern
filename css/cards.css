@@ -1,0 +1,53 @@
+/* CARDS: card face layout (cost gem, framed picture, name ribbon, type tab, description), hover, deal-in.
+   Frame shine, motes and ornaments: css/cardFrame.css.
+   --tc = type color (data/cardTypesData.js), --cc = cost color. Picture: css/cardArt.css. Hand fan: css/hand.css */
+.hand { display: flex; flex-wrap: wrap; gap: 14px; margin: 12px 0; justify-content: center; }
+.card { --tc: #666; --cc: #8f8a96; position: relative; width: 172px; height: 244px; padding: 0; font-size: 14px; cursor: pointer; color: #e8e0ee;
+  border: 2px solid transparent; border-radius: 12px;
+  background:
+    radial-gradient(ellipse at 50% 0%, color-mix(in srgb, var(--tc) 22%, transparent), transparent 60%) padding-box,
+    linear-gradient(170deg, #26222e, #15131a 55%, #0f0d12) padding-box,
+    linear-gradient(160deg, color-mix(in srgb, var(--tc) 55%, #fff3d6) 0%, var(--tc) 30%, color-mix(in srgb, var(--tc) 45%, #000) 70%, color-mix(in srgb, var(--tc) 80%, #fff) 100%) border-box;
+  box-shadow: 0 6px 14px rgba(0,0,0,.6), inset 0 0 0 1px rgba(0,0,0,.6), inset 0 0 0 3px color-mix(in srgb, var(--tc) 18%, transparent);
+  transition: transform .2s cubic-bezier(.2,.9,.3,1.25), translate .2s cubic-bezier(.2,.9,.3,1.25), rotate .2s ease-out, scale .2s cubic-bezier(.2,.9,.3,1.25), box-shadow .2s, filter .2s, opacity .2s; }
+.card:hover:not(.disabled) { transform: translateY(-10px); box-shadow: 0 14px 26px rgba(0,0,0,.7), 0 0 22px color-mix(in srgb, var(--tc) 60%, transparent), inset 0 0 0 1px rgba(0,0,0,.6); }
+.card.disabled { filter: grayscale(.65) brightness(.62); cursor: default; }
+.card.deal { animation: deal .72s cubic-bezier(.25,.8,.3,1.1) backwards; }
+/* Starts at the draw pile: ui/juice/drawFx.js sets --deal-dx / --deal-dy per card. Speed: data/turnFlowData.js */
+@keyframes deal { 0% { opacity: 0; transform: translate(var(--deal-dx, -260px), var(--deal-dy, 60px)) rotate(-18deg) scale(.4); } 20% { opacity: 1; } 100% { opacity: 1; transform: none; } }
+
+/* cost gem: color by cost (0 grey, 1 green, 2 yellow, 3 red) */
+.card .cost { position: absolute; z-index: 4; top: -12px; left: -12px; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  background: radial-gradient(circle at 35% 28%, #fff 0, color-mix(in srgb, var(--cc) 45%, #fff) 14%, var(--cc) 50%, color-mix(in srgb, var(--cc) 55%, #000) 100%);
+  border: 2.5px solid #1a1720; box-shadow: 0 0 0 2px color-mix(in srgb, var(--cc) 60%, #d9c79a), 0 0 12px color-mix(in srgb, var(--cc) 75%, transparent), 0 3px 6px rgba(0,0,0,.6); }
+.card .cost span { font-size: 20px; font-weight: 700; color: #fff; line-height: 1; text-shadow: 0 1px 0 rgba(0,0,0,.65), 0 0 4px rgba(0,0,0,.6); }
+
+/* top: framed picture window */
+.card .top { position: absolute; top: 7px; left: 7px; right: 7px; height: 46%; overflow: hidden; border-radius: 8px 8px 4px 4px;
+  border: 1.5px solid color-mix(in srgb, var(--tc) 70%, #e8d8b0); box-shadow: inset 0 0 14px rgba(0,0,0,.8), 0 2px 4px rgba(0,0,0,.6); }
+
+/* name ribbon across the middle */
+.card .banner { position: absolute; z-index: 3; left: 2px; right: 2px; top: calc(46% - 6px); height: 26px; display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--tc) 55%, #3a3040), color-mix(in srgb, var(--tc) 40%, #120f16));
+  clip-path: polygon(0 0, 100% 0, 96% 50%, 100% 100%, 0 100%, 4% 50%);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.25); border-top: 1px solid color-mix(in srgb, var(--tc) 40%, #fff3d6); border-bottom: 1px solid rgba(0,0,0,.6); }
+.card .banner .name { padding: 0 14px; text-align: center; font-size: 15px; color: #fff6e4; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  text-shadow: 0 1px 0 rgba(0,0,0,.8), 0 0 6px rgba(0,0,0,.6); }
+.card .type { position: absolute; z-index: 3; top: calc(46% + 22px); left: 50%; transform: translateX(-50%); font-size: 9px; font-weight: 800; letter-spacing: 1.6px; text-transform: uppercase;
+  padding: 1px 9px 1px; border-radius: 0 0 7px 7px; white-space: nowrap; color: color-mix(in srgb, var(--tc) 35%, #fff); background: #121016;
+  border: 1px solid color-mix(in srgb, var(--tc) 55%, transparent); border-top: none; }
+
+/* bottom: what the card does */
+.card .text { position: absolute; left: 9px; right: 9px; top: calc(46% + 36px); bottom: 12px; display: flex; align-items: center; justify-content: center; padding: 2px 4px; text-align: center;
+  font-size: 14px; line-height: 1.32; font-weight: 600; color: #e6deec; }
+.card .text .cn { font-family: var(--font-display); font-weight: 600; font-size: 1.12em; color: #fff; text-shadow: 0 0 6px color-mix(in srgb, var(--tc) 80%, transparent); }
+.card .text .kw { font-weight: 800; color: #f2cf86; }
+
+/* DRAGGING (see js/ui/drag.js) */
+.card { touch-action: none; }
+.card.selected { border-color: var(--gold); box-shadow: 0 0 18px rgba(217,164,65,.6); }
+.card.dragging { opacity: .2; }
+.drag-ghost { position: fixed; z-index: 99; pointer-events: none; transform: rotate(-4deg) scale(1.08); opacity: .95; box-shadow: 0 14px 28px rgba(0,0,0,.8); transition: none; }
+.enemy.droptarget { border-color: #ff6a5a; background: rgba(255,106,90,.12); box-shadow: 0 0 22px rgba(255,106,90,.55); }
+body.dragging-card .enemies, body.dragging-card .player { transition: box-shadow .15s; }
+body.skill-drag.in-play-zone .player-unit { filter: drop-shadow(0 0 14px rgba(120,170,255,.8)); }

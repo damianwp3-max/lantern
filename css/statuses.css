@@ -1,0 +1,24 @@
+/* STATUS, POWER AND DELAYED ICONS (js/ui/statusView.js) */
+.st-row { display: flex; flex-wrap: wrap; gap: 4px; justify-content: center; margin-top: 3px; }
+.player .st-row { display: inline-flex; justify-content: flex-start; margin-right: 4px; }
+.st-chip { --st: #cfc8d8; position: relative; display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 50%;
+  background: radial-gradient(circle at 50% 35%, color-mix(in srgb, var(--st) 30%, #1a1720), #0b0a0e 75%);
+  border: 2px solid color-mix(in srgb, var(--st) 75%, #000); box-shadow: 0 2px 6px rgba(0,0,0,.7), 0 0 8px color-mix(in srgb, var(--st) 35%, transparent), inset 0 1px 0 rgba(255,255,255,.12);
+  color: var(--st); cursor: help; animation: st-pop .25s ease-out; }
+.st-chip .st-pic { display: flex; filter: drop-shadow(0 1px 1px rgba(0,0,0,.8)); }
+.st-chip .st-glyph { font-size: 16px; line-height: 1; }
+.st-chip b { position: absolute; right: -6px; bottom: -5px; min-width: 17px; height: 17px; padding: 0 4px; border-radius: 9px; font-size: 11px; line-height: 15px; text-align: center;
+  color: #fff; background: #17141c; border: 1.5px solid var(--st); box-shadow: 0 1px 3px rgba(0,0,0,.8); }
+/* debuffs: a red ring and a small down-arrow tab so they read as bad at a glance */
+.st-chip.st-debuff { border-color: #d0453b; box-shadow: 0 2px 6px rgba(0,0,0,.7), 0 0 10px rgba(224,80,70,.55), inset 0 0 0 1.5px color-mix(in srgb, var(--st) 70%, transparent); }
+.st-chip.st-debuff::before { content: ''; position: absolute; top: -5px; left: -4px; width: 13px; height: 13px; border-radius: 50%; background: #c0392f; border: 1.5px solid #0d0c10;
+  clip-path: none; box-shadow: 0 1px 2px rgba(0,0,0,.8); }
+.st-chip.st-debuff::after { content: ''; position: absolute; top: -1.5px; left: -0.5px; width: 0; height: 0; border-left: 3.5px solid transparent; border-right: 3.5px solid transparent; border-top: 5px solid #fff; }
+.st-chip.st-buff::before { content: ''; position: absolute; top: -5px; left: -4px; width: 13px; height: 13px; border-radius: 50%; background: #3f9a4f; border: 1.5px solid #0d0c10; }
+.st-chip.st-buff::after { content: ''; position: absolute; top: -1.5px; left: -0.5px; width: 0; height: 0; border-left: 3.5px solid transparent; border-right: 3.5px solid transparent; border-bottom: 5px solid #fff; }
+.st-row .st-chip { margin: 4px 6px 4px 2px; }
+.st-power { --st: #c49ae8; }
+.st-delayed { --st: #7fd6c2; animation: st-pop .25s ease-out, st-tick 1.6s ease-in-out infinite; }
+@keyframes st-pop { from { transform: scale(.4); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+@keyframes st-tick { 50% { box-shadow: 0 0 8px rgba(127,214,194,.6); } }
+.intent.weakened { text-decoration: underline dotted; }

@@ -1,0 +1,35 @@
+/* CAMP SCENE at the rest site (js/ui/campScene.js, colors in js/data/campData.js) */
+.camp-scene { position: relative; height: 300px; max-width: 980px; margin: 8px auto 0; border-radius: 16px; overflow: hidden;
+  border: 1px solid var(--line); box-shadow: 0 12px 30px rgba(0,0,0,.55), inset 0 0 0 1px rgba(255,255,255,.03); }
+.camp-scene .cave { z-index: 0; }
+.camp-ground { position: absolute; left: 0; right: 0; bottom: 0; height: 70px; z-index: 1;
+  background: radial-gradient(ellipse at 52% 0%, rgba(255,170,80,.18), transparent 60%), linear-gradient(transparent, rgba(5,4,6,.85)); }
+.camp-prop { position: absolute; bottom: 22px; z-index: 2; translate: -50% 0; }
+.camp-tent { width: 230px; height: 168px; display: block; filter: drop-shadow(0 4px 6px rgba(0,0,0,.5)); }
+.camp-tent-glow { animation: camp-flick 1.4s ease-in-out infinite alternate; }
+
+.camp-fire-wrap { bottom: 16px; z-index: 3; }
+.camp-fire { position: relative; width: 120px; height: 110px; }
+.camp-fire-svg { position: relative; width: 120px; height: 110px; display: block; z-index: 2; }
+.camp-flames .fl { transform-box: fill-box; transform-origin: 50% 100%; }
+.camp-flames .fl1 { animation: camp-flame 0.9s ease-in-out infinite alternate; }
+.camp-flames .fl2 { animation: camp-flame 0.7s ease-in-out infinite alternate-reverse; }
+.camp-flames .fl3 { animation: camp-flame 0.5s ease-in-out infinite alternate; }
+@keyframes camp-flame { 0% { transform: scale(1, 1) skewX(0deg); } 50% { transform: scale(.94, 1.1) skewX(3deg); } 100% { transform: scale(1.04, .94) skewX(-3deg); } }
+.camp-light { position: absolute; left: 50%; top: 55%; width: 520px; height: 380px; translate: -50% -50%; border-radius: 50%; z-index: 1; pointer-events: none;
+  background: radial-gradient(ellipse, color-mix(in srgb, var(--f-glow) 42%, transparent), color-mix(in srgb, var(--f-glow) 12%, transparent) 40%, transparent 70%);
+  mix-blend-mode: screen; animation: camp-flick 1.6s ease-in-out infinite alternate; }
+@keyframes camp-flick { 0% { opacity: .75; } 40% { opacity: 1; } 70% { opacity: .85; } 100% { opacity: .95; } }
+.camp-embers { position: absolute; left: 50%; bottom: 40px; width: 0; height: 0; z-index: 3; }
+.camp-ember { position: absolute; left: var(--x); bottom: 0; width: 4px; height: 4px; border-radius: 50%; background: #ffd27a; box-shadow: 0 0 6px #ff9a3a;
+  animation: camp-rise var(--d) linear infinite; opacity: 0; }
+@keyframes camp-rise { 0% { transform: translate(0, 0) scale(1); opacity: 0; } 10% { opacity: 1; } 100% { transform: translate(calc(var(--x) * -.6), -150px) scale(.3); opacity: 0; } }
+
+.camp-hero { bottom: 12px; z-index: 2; }
+.camp-hero .mc { position: relative; z-index: 2; }
+.camp-hero-shadow { position: absolute; left: 50%; bottom: -2px; width: 120px; height: 16px; translate: -50% 0; border-radius: 50%; background: rgba(0,0,0,.55); filter: blur(3px); z-index: 1; }
+/* the warm side of the scene: everything near the fire gets a soft orange wash */
+.camp-warmth { position: absolute; inset: 0; z-index: 4; pointer-events: none;
+  background: radial-gradient(ellipse at 52% 80%, rgba(255,150,60,.16), transparent 55%), radial-gradient(ellipse at 50% 50%, transparent 55%, rgba(0,0,0,.45));
+  animation: camp-flick 2.1s ease-in-out infinite alternate; }
+.rest-site h2 { margin: 14px 0 4px; }

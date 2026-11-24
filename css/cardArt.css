@@ -1,0 +1,19 @@
+/* CARD ART: the picture on the top half of each card (drawn by js/ui/cardArt.js) */
+.card .art { position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 50% 55%, color-mix(in srgb, var(--art) 30%, transparent), rgba(0,0,0,.45) 78%), linear-gradient(#1c1922, #0f0e13); }
+.card .art svg { width: 100%; height: 100%; display: block; filter: drop-shadow(0 0 3px color-mix(in srgb, var(--art) 60%, transparent)); transition: filter .2s, transform .25s; }
+.card:hover:not(.disabled) .art svg, .card.selected .art svg, .card.aiming .art svg { filter: drop-shadow(0 0 7px var(--art)); transform: scale(1.08); }
+
+/* small idle motion */
+.card .art-swing { transform-origin: 84px 9px; animation: art-swing 2.4s ease-in-out infinite; }
+.card .art-flicker { transform-box: fill-box; transform-origin: center bottom; animation: art-flicker 1.2s ease-in-out infinite; }
+.card .art-flicker2 { transform-box: fill-box; transform-origin: center; animation: art-flicker 1.2s ease-in-out .6s infinite; }
+.card .art-spin { transform-origin: 50px 25px; animation: art-spin 9s linear infinite; }
+.card .art-beat { transform-box: fill-box; transform-origin: center; animation: art-beat 1.1s ease-in-out infinite; }
+.card .art-float { animation: art-float 2.6s ease-in-out infinite; }
+@keyframes art-swing { 0%,100% { transform: rotate(-8deg); } 50% { transform: rotate(8deg); } }
+@keyframes art-flicker { 0%,100% { transform: scale(1); opacity: 1; } 50% { transform: scale(.86, .8); opacity: .8; } }
+@keyframes art-spin { to { transform: rotate(360deg); } }
+@keyframes art-beat { 0%,100% { transform: scale(1); } 15% { transform: scale(1.12); } 30% { transform: scale(.97); } 45% { transform: scale(1.06); } }
+@keyframes art-float { 0%,100% { transform: translateY(0); opacity: .9; } 50% { transform: translateY(-4px); opacity: .4; } }
+@media (prefers-reduced-motion: reduce) { .card .art * { animation: none !important; } }

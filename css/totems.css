@@ -1,0 +1,6 @@
+/* TOTEMS (they used to be called relics): small round badges in the top bar, shop and rewards. js/ui/components.js */
+.totem-icon { --tc: #d9a441; display: inline-flex; align-items: center; justify-content: center; width: 26px; height: 26px; border-radius: 50%; font-size: 14px; cursor: help;
+  color: var(--tc); background: radial-gradient(circle at 35% 30%, color-mix(in srgb, var(--tc) 30%, #2a2433), #15121a);
+  border: 2px solid color-mix(in srgb, var(--tc) 75%, #000); box-shadow: 0 0 8px color-mix(in srgb, var(--tc) 40%, transparent); }
+.totem-icon.big { width: 44px; height: 44px; font-size: 22px; flex: none; }
+.passives.totems { display: flex; gap: 4px; }

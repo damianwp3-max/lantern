@@ -1,0 +1,56 @@
+/* BLOOD DRIP: running blood on the vampire hero's cards, in fights only
+   (js/ui/blood/bloodDrip.js adds .blood-drip to cards in the combat hand).
+   Slightly see-through so the name and text stay readable. */
+.card .blood-drip { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 3; pointer-events: none; overflow: visible;
+  opacity: .8; mix-blend-mode: normal; filter: drop-shadow(0 1px 1px rgba(0,0,0,.55)); }
+.card.blood-on { box-shadow: 0 6px 14px rgba(0,0,0,.6), 0 0 14px rgba(170,10,30,.35), inset 0 0 0 1px rgba(0,0,0,.6); }
+.card.blood-on:hover:not(.disabled) { box-shadow: 0 14px 26px rgba(0,0,0,.7), 0 0 26px rgba(220,20,50,.6), inset 0 0 0 1px rgba(0,0,0,.6); }
+.card.blood-on.disabled .blood-drip { opacity: .55; }
+
+/* one drip: the stem stretches, the bead at its tip swells, then a drop lets go and falls */
+.blood-drip .bd-stem { transform-box: fill-box; transform-origin: 50% 0; animation: bd-stem var(--dur) cubic-bezier(.45,0,.55,1) infinite; animation-delay: var(--del); }
+.blood-drip .bd-bead { transform-box: fill-box; transform-origin: 50% 50%; animation: bd-bead var(--dur) cubic-bezier(.45,0,.55,1) infinite; animation-delay: var(--del); }
+.blood-drip .bd-fall { transform-box: fill-box; transform-origin: 50% 0; opacity: 0; animation: bd-fall var(--dur) ease-in infinite; animation-delay: var(--del); }
+.blood-drip .bd-rim { animation: bd-rim 4.5s ease-in-out infinite; transform-origin: 50% 0; }
+
+@keyframes bd-stem {
+  0%   { transform: scaleY(.32); }
+  52%  { transform: scaleY(.94); }
+  60%  { transform: scaleY(1); }
+  66%  { transform: scaleY(.72); }
+  100% { transform: scaleY(.32); }
+}
+@keyframes bd-bead {
+  0%   { transform: translateY(calc(var(--len) * -.68)) scale(.75); }
+  52%  { transform: translateY(calc(var(--len) * -.06)) scale(1.18); }
+  60%  { transform: translateY(0) scale(1.32, 1.42); }
+  62%  { transform: translateY(calc(var(--len) * -.04)) scale(.55); }
+  66%  { transform: translateY(calc(var(--len) * -.28)) scale(.8); }
+  100% { transform: translateY(calc(var(--len) * -.68)) scale(.75); }
+}
+@keyframes bd-fall {
+  0%, 59.9% { opacity: 0; transform: translateY(0) scale(1); }
+  60%  { opacity: 1; transform: translateY(1px) scale(1, 1.1); }
+  70%  { opacity: .95; transform: translateY(calc(var(--fall) * .45)) scale(.85, 1.5); }
+  80%  { opacity: 0; transform: translateY(var(--fall)) scale(.6, 1.8); }
+  100% { opacity: 0; transform: translateY(var(--fall)) scale(.6, 1.8); }
+}
+@keyframes bd-rim { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(1.12); } }
+
+/* long runs along the frame creep slower and barely retract */
+.blood-drip .bd-edge .bd-stem { animation-name: bd-stem-edge; }
+.blood-drip .bd-edge .bd-bead { animation-name: bd-bead-edge; }
+@keyframes bd-stem-edge { 0% { transform: scaleY(.55); } 60% { transform: scaleY(1); } 66% { transform: scaleY(.9); } 100% { transform: scaleY(.55); } }
+@keyframes bd-bead-edge {
+  0%   { transform: translateY(calc(var(--len) * -.45)) scale(.8); }
+  58%  { transform: translateY(calc(var(--len) * -.02)) scale(1.25); }
+  60%  { transform: translateY(0) scale(1.35, 1.45); }
+  62%  { transform: translateY(calc(var(--len) * -.03)) scale(.6); }
+  66%  { transform: translateY(calc(var(--len) * -.1)) scale(.85); }
+  100% { transform: translateY(calc(var(--len) * -.45)) scale(.8); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .blood-drip * { animation: none !important; }
+  .blood-drip .bd-fall { opacity: 0; }
+}

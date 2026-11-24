@@ -1,0 +1,16 @@
+/* DIFFICULTY PICKER on the hero select screen (js/ui/difficultyPicker.js). --dc = mode color */
+.df-picker { margin: 4px auto 12px; max-width: 760px; }
+.df-picker h4 { margin: 0 0 6px; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: var(--gold); }
+.df-row { display: flex; gap: 8px; justify-content: center; }
+.df-btn { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 7px 6px; border-radius: 10px;
+  border: 2px solid var(--line); background: linear-gradient(#211e29, #16141b); color: var(--text); cursor: pointer;
+  transition: transform .12s, border-color .12s, box-shadow .12s; }
+.df-btn b { font-size: 15px; }
+.df-btn:hover { transform: translateY(-2px); border-color: color-mix(in srgb, var(--dc) 60%, var(--line)); }
+.df-btn.on { border-color: var(--dc); box-shadow: 0 0 14px color-mix(in srgb, var(--dc) 45%, transparent); }
+.df-btn.on b { color: var(--dc); }
+.df-pips { display: flex; gap: 3px; height: 8px; }
+.df-pips i { width: 8px; height: 8px; border-radius: 50%; background: var(--dc); opacity: .85; }
+.df-info { margin: 8px 0 0; font-size: 13px; color: var(--muted); }
+.df-nums { display: block; margin-top: 2px; }
+.df-nums b { color: var(--dc); }

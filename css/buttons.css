@@ -1,0 +1,43 @@
+/* BUTTONS: soft, raised, warm. Applies to the plain buttons from
+   components.button() (no class) and .primary; special buttons (top bar,
+   End Turn, chips) keep their own looks. Press ripple: js/ui/polish/pressFx.js. */
+button:not([class]), button.primary {
+  position: relative; overflow: hidden; padding: 10px 22px; min-height: 40px;
+  font-family: var(--font-display); font-weight: 500; font-size: 15.5px; letter-spacing: .4px; color: #efe4d0;
+  background: linear-gradient(180deg, #312a3b 0%, #211c29 52%, #18151e 100%);
+  border: 1px solid #5c4b36; border-radius: 12px;
+  box-shadow: 0 3px 0 #0a080d, 0 6px 14px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,232,190,.13), inset 0 -1px 0 rgba(0,0,0,.35);
+  transition: transform .14s cubic-bezier(.3,1.5,.5,1), box-shadow .16s, border-color .16s, color .16s, filter .16s;
+}
+button:not([class])::before, button.primary::before { content: ''; position: absolute; left: 12px; right: 12px; top: 0; height: 1px; pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(255,214,140,.55), transparent); opacity: .6; transition: opacity .16s; }
+button:not([class]):hover:not(:disabled), button.primary:hover:not(:disabled) {
+  transform: translateY(-2px); border-color: #c9974a; color: #fff6e2;
+  box-shadow: 0 5px 0 #0a080d, 0 12px 22px rgba(0,0,0,.5), 0 0 18px rgba(217,164,65,.22), inset 0 1px 0 rgba(255,232,190,.22), inset 0 -1px 0 rgba(0,0,0,.35); }
+button:not([class]):hover:not(:disabled)::before, button.primary:hover:not(:disabled)::before { opacity: 1; }
+button:not([class]):active:not(:disabled), button.primary:active:not(:disabled) {
+  transform: translateY(2px) scale(.985); transition-duration: .05s;
+  box-shadow: 0 1px 0 #0a080d, 0 2px 6px rgba(0,0,0,.5), inset 0 2px 7px rgba(0,0,0,.45); }
+button:not([class]):disabled, button.primary:disabled { opacity: .38; filter: saturate(.4); box-shadow: 0 2px 0 #0a080d, inset 0 1px 0 rgba(255,255,255,.04); }
+
+/* the main action: warm gold */
+button.primary { color: #2a1a06; font-weight: 600; text-shadow: 0 1px 0 rgba(255,240,200,.5);
+  background: linear-gradient(180deg, #f6d27c 0%, #e0aa48 48%, #b07a2a 100%); border-color: #ffe0a0;
+  box-shadow: 0 3px 0 #5a3a10, 0 8px 18px rgba(0,0,0,.45), 0 0 18px rgba(240,180,80,.25), inset 0 1px 0 rgba(255,250,230,.7), inset 0 -2px 0 rgba(120,70,10,.35); }
+button.primary:hover:not(:disabled) { color: #1e1204; border-color: #fff0c8;
+  box-shadow: 0 5px 0 #5a3a10, 0 12px 24px rgba(0,0,0,.5), 0 0 28px rgba(255,200,100,.45), inset 0 1px 0 rgba(255,250,230,.8), inset 0 -2px 0 rgba(120,70,10,.35); }
+button.primary::before { background: linear-gradient(90deg, transparent, rgba(255,255,255,.9), transparent); }
+
+/* keyboard focus is always visible */
+button:focus-visible, [data-action]:focus-visible { outline: 2px solid #ffd98a; outline-offset: 3px; }
+
+/* the round close button of windows */
+.overlay-close { width: 34px; height: 34px; padding: 0; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center;
+  background: radial-gradient(circle at 40% 35%, #3a3044, #1a1620); border: 1px solid #6a5638; color: #e8d8b8;
+  box-shadow: 0 2px 6px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,232,190,.15); transition: transform .15s, border-color .15s, color .15s; }
+.overlay-close:hover:not(:disabled) { transform: rotate(90deg); border-color: var(--gold); color: #fff; background: radial-gradient(circle at 40% 35%, #4a3c54, #221c2a); }
+
+/* press ripple */
+.press-ripple { position: absolute; z-index: 0; width: 12px; height: 12px; margin: -6px 0 0 -6px; border-radius: 50%; pointer-events: none;
+  background: radial-gradient(circle, rgba(255,236,190,.55), rgba(255,220,150,0) 70%); animation: ripple .55s ease-out forwards; }
+@keyframes ripple { to { transform: scale(22); opacity: 0; } }

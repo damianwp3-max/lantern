@@ -1,0 +1,9 @@
+/* DECK VIEWER (js/ui/screens/deckScreen.js): header with the Back button, then the scrollable card area */
+.deck-view { display: flex; flex-direction: column; width: min(1100px, 100%); height: calc(100vh - 150px); min-height: 320px; margin: 0 auto; }
+.deck-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 4px 4px 10px; }
+.deck-head h2 { margin: 0; font-family: var(--font-display); font-weight: 600; font-size: 28px; letter-spacing: .5px; text-shadow: 0 0 14px rgba(217,164,65,.35); }
+.deck-back { display: inline-flex; align-items: center; gap: 8px; flex: none; padding: 12px 26px 12px 18px; font-family: var(--font-display); font-weight: 600; font-size: 20px; letter-spacing: .5px; color: #fff4e0; background: linear-gradient(#3a3146, #241f2e); border: 2px solid var(--gold); border-radius: 14px; box-shadow: 0 4px 0 #0b0910, 0 0 18px rgba(217,164,65,.25); }
+.deck-back:hover:not(:disabled) { background: linear-gradient(#4a3d59, #2c2638); border-color: #ffd27a; box-shadow: 0 4px 0 #0b0910, 0 0 26px rgba(217,164,65,.5); }
+.deck-back:active:not(:disabled) { transform: translateY(3px); box-shadow: 0 1px 0 #0b0910; }
+.deck-back-icon { width: 22px; height: 22px; flex: none; }
+.deck-cards { flex: 1; min-height: 0; margin: 0; padding: 18px 14px 12px; overflow-y: auto; align-content: flex-start; justify-content: center; gap: 16px; background: rgba(0,0,0,.18); border-radius: 12px; }

@@ -1,0 +1,59 @@
+/* JUICE: flashes, particles, floating text, banners, aim arrow, little UI pops (js/ui/juice/*.js) */
+#fx-layer { position: fixed; inset: 0; pointer-events: none; z-index: 200; overflow: hidden; }
+.fx-flash { position: absolute; inset: 0; background: var(--fc); }
+.fx-flash.vignette { background: radial-gradient(ellipse at center, transparent 35%, var(--fc) 100%); }
+.fx-particle { position: absolute; border-radius: 50%; box-shadow: 0 0 6px currentColor; }
+.fx-particle.ring { background: transparent !important; border: 2px solid currentColor; }
+.fx-float { position: absolute; font-size: 24px; font-weight: bold; white-space: nowrap; text-shadow: 0 0 8px #000, 0 2px 2px #000; color: #fff; }
+.fx-float.blue { color: #8fb6ff; } .fx-float.gold { color: #ffd35a; } .fx-float.orange { color: #ff9a3c; }
+.fx-banner { position: absolute; left: 50%; top: 40%; font-size: 72px; font-weight: bold; letter-spacing: 12px; white-space: nowrap; }
+.fx-banner.gold span { color: #ffd35a; text-shadow: 0 0 30px rgba(255,180,60,.9), 0 4px 0 #6a4a10; }
+.fx-banner.red span { color: #ff5a4a; text-shadow: 0 0 30px rgba(255,40,40,.9), 0 4px 0 #400; }
+.fly-card { position: fixed; z-index: 210; margin: 0; pointer-events: none; transition: none; box-shadow: 0 0 24px color-mix(in srgb, var(--tc) 80%, transparent); }
+
+/* aim arrow (js/ui/targeting.js) */
+.aim-arrow { position: fixed; inset: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 150; display: none; overflow: visible; }
+.aim-arrow .aim-line { fill: none; stroke: #ffd35a; stroke-width: 5; stroke-linecap: round; stroke-dasharray: 2 12; animation: aim-dash .5s linear infinite; }
+.aim-arrow .aim-glow { fill: none; stroke: rgba(255,211,90,.25); stroke-width: 14; stroke-linecap: round; }
+.aim-arrow .aim-head { fill: #ffd35a; }
+.aim-arrow.locked .aim-line { stroke: #ff6a5a; } .aim-arrow.locked .aim-head { fill: #ff6a5a; } .aim-arrow.locked .aim-glow { stroke: rgba(255,106,90,.3); }
+.aim-arrow .aim-ring { fill: none; stroke: #ffd35a; stroke-width: 2; opacity: .5; }
+.aim-arrow.locked .aim-ring { stroke: #ff6a5a; opacity: .95; animation: aim-ring .7s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+@keyframes aim-ring { 50% { transform: scale(1.25); } }
+.aim-arrow .aim-tether { fill: none; stroke: rgba(255,106,90,.45); stroke-width: 2; stroke-dasharray: 4 6; }
+.aim-arrow .aim-label { fill: #ffe0d8; font: 600 13px var(--font-display); paint-order: stroke; stroke: #000; stroke-width: 3px; }
+@keyframes aim-dash { to { stroke-dashoffset: -14; } }
+.enemy.droptarget { scale: 1.07; transition: scale .12s ease-out; }
+.enemy.aoe-target { border-color: #ff9a5a; background: rgba(255,140,80,.1); box-shadow: 0 0 18px rgba(255,140,80,.45); }
+.enemy.aoe-target .sprite { filter: drop-shadow(0 0 8px #ff9a5a); }
+.enemy.droptarget .sprite { filter: drop-shadow(0 0 10px #ff6a5a) brightness(1.15); }
+.enemy.droptarget::after { content: ''; position: absolute; left: 50%; bottom: 52px; width: 80%; height: 22px; translate: -50% 0; border: 2px solid #ff6a5a; border-radius: 50%; animation: reticle .8s ease-in-out infinite; pointer-events: none; }
+@keyframes reticle { 0%,100% { scale: 1; opacity: .9; } 50% { scale: 1.12; opacity: .5; } }
+
+/* hp bar drain trail */
+.hpbar { position: relative; }
+.hp-trail { position: absolute; top: 0; bottom: 0; background: #f4e3c0; }
+
+/* player feedback */
+.player-unit.shielded::after { content: ''; position: absolute; left: 50%; top: 50%; width: 170px; height: 170px; translate: -50% -50%; border-radius: 50%;
+  border: 3px solid rgba(120,170,255,.9); box-shadow: 0 0 24px rgba(120,170,255,.7), inset 0 0 24px rgba(120,170,255,.5); animation: shield-pop .7s ease-out forwards; pointer-events: none; }
+@keyframes shield-pop { from { scale: .4; opacity: 1; } to { scale: 1.2; opacity: 0; } }
+.player .energy.pop { animation: pop .4s ease-out; }
+.player .str { color: #ff9a3c; font-size: 15px; }
+@keyframes pop { 50% { scale: 1.35; } }
+button.nudge { border-color: var(--gold); animation: nudge 1.2s ease-in-out infinite; }
+@keyframes nudge { 0%,100% { box-shadow: 0 0 0 rgba(217,164,65,0); } 50% { box-shadow: 0 0 16px rgba(217,164,65,.8); } }
+.intent { animation: intent-bob 2s ease-in-out infinite; }
+@keyframes intent-bob { 50% { translate: 0 -3px; } }
+
+/* rewards */
+.reward-hand .card.reward-in { animation: reward-in .6s cubic-bezier(.2,.9,.3,1.2) backwards; }
+@keyframes reward-in { from { opacity: 0; transform: translateY(60px) rotateY(90deg) scale(.7); } 60% { opacity: 1; transform: translateY(-8px) rotateY(0) scale(1.05); } to { transform: none; } }
+.reward-hand .card:hover { box-shadow: 0 0 26px rgba(255,211,90,.6), 0 12px 24px rgba(0,0,0,.7); }
+.reward-hand .card.fade-away { opacity: 0; transform: translateY(30px) scale(.9); }
+.deck-count.bump { animation: pop .45s ease-out; color: var(--gold); }
+
+/* general UI polish */
+button { transition: background .15s, border-color .15s, transform .1s, box-shadow .2s; }
+button:hover:not(:disabled) { box-shadow: 0 0 12px rgba(217,164,65,.35); }
+@media (prefers-reduced-motion: reduce) { .intent, button.nudge, .hand.fan .card.selected { animation: none !important; } }

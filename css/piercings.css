@@ -1,0 +1,16 @@
+/* PIERCINGS AND UPGRADES on the card face (js/ui/cardView.js).
+   The card shows only a small badge; the rule is in the side panel when you hover (ui/tipTextExtra.js).
+   --pc = piercing color (data/piercingsData.js). */
+.card .pierce-tag { position: absolute; z-index: 3; left: 26px; top: 5px; display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px 2px 4px; border-radius: 9px;
+  font-size: 10px; font-weight: 800; letter-spacing: .8px; text-transform: uppercase; color: #fff;
+  background: linear-gradient(color-mix(in srgb, var(--pc) 85%, #fff), color-mix(in srgb, var(--pc) 70%, #000)); text-shadow: 0 1px 1px rgba(0,0,0,.7);
+  box-shadow: 0 1px 4px rgba(0,0,0,.7), 0 0 9px color-mix(in srgb, var(--pc) 70%, transparent); }
+.card .pierce-tag b { display: inline-flex; align-items: center; justify-content: center; min-width: 14px; height: 14px; font-size: 11px; border-radius: 50%; background: rgba(0,0,0,.35); }
+.card.pierced { box-shadow: 0 6px 14px rgba(0,0,0,.6), 0 0 14px color-mix(in srgb, var(--pc) 45%, transparent), inset 0 0 0 1px rgba(0,0,0,.6), inset 0 0 0 3px color-mix(in srgb, var(--tc) 18%, transparent); }
+.card.pierced::after { content: ''; position: absolute; z-index: 5; right: -5px; top: 52px; width: 9px; height: 46px; border-radius: 0 6px 6px 0; pointer-events: none;
+  background: linear-gradient(var(--pc), color-mix(in srgb, var(--pc) 55%, #000)); box-shadow: 0 0 10px color-mix(in srgb, var(--pc) 70%, transparent); }
+.card.upgraded .banner .name { color: #c8ffa8; text-shadow: 0 0 8px rgba(120,255,100,.6), 0 1px 0 #000; }
+.card.cost-down .cost span { color: #c8ffa8; }
+.card.cost-down .cost { box-shadow: 0 0 0 2px #7ad860, 0 0 14px rgba(122,216,96,.8), 0 3px 6px rgba(0,0,0,.6); }
+.card.x-card .cost span { font-size: 22px; font-style: italic; }
+.t-pack { }

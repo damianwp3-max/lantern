@@ -1,0 +1,50 @@
+/* ENEMY ART (SVG drawings from js/ui/enemyArt/*.js). The .sprite box stays, so hit flashes,
+   lunges, aiming glow and the dying fall from combat.css / enemyIdle.css / juice.css still work. */
+.sprite.svgart { --sh: 96px; width: calc(96px * var(--s)); height: calc(96px * var(--s)); background: none; box-shadow: none;
+  clip-path: none; border-radius: 0; transform-origin: 50% 100%; }
+.sprite.svgart .ea-svg { width: 100%; height: 100%; overflow: visible; display: block; }
+.sprite.svgart.idle-scurry { animation: idle-scurry 1.6s ease-in-out infinite; }
+.sprite.svgart.idle-wobble { animation: idle-wobble 2.2s ease-in-out infinite; }
+.sprite.svgart.idle-sway   { animation: idle-sway 3.2s ease-in-out infinite; }
+.sprite.svgart.idle-shuffle{ animation: idle-shuffle 1.8s ease-in-out infinite; }
+.sprite.svgart.idle-swim   { animation: idle-swim 2.4s ease-in-out infinite; }
+.sprite.svgart.idle-swing  { animation: idle-swing 2.8s ease-in-out infinite; transform-origin: 50% 0; }
+.sprite.svgart.idle-hop    { animation: idle-hop 1.1s ease-in-out infinite; }
+.sprite.svgart.idle-heavy  { animation: idle-heavy 3.4s ease-in-out infinite; }
+.sprite.svgart.idle-sniff  { animation: idle-sniff 2s ease-in-out infinite; }
+.sprite.svgart.idle-dangle { animation: idle-dangle 3s ease-in-out infinite; transform-origin: 50% 0; }
+.sprite.svgart.idle-float  { animation: idle-float 3s ease-in-out infinite; }
+.sprite.svgart.idle-bob    { animation: bob 2.4s ease-in-out infinite; }
+@keyframes idle-sniff  { 0%,100% { transform: translateX(0) rotate(0); } 30% { transform: translateX(3px) rotate(1.5deg); } 45% { transform: translateX(4px) rotate(2.5deg) scaleY(.97); } 60% { transform: translateX(2px) rotate(1deg); } }
+@keyframes idle-dangle { 0%,100% { transform: translateY(0) rotate(-3deg); } 50% { transform: translateY(6px) rotate(3deg); } }
+@keyframes idle-float  { 0%,100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-8px) scale(1.03, .98); } }
+
+/* parts that move by themselves */
+.ea-svg .ea-eye { transform-box: fill-box; transform-origin: 50% 50%; animation: ea-blink 4.5s infinite; }
+.ea-svg .ea-limb, .ea-svg .ea-tail, .ea-svg .ea-fin { transform-box: fill-box; }
+.ea-svg .ea-limb { transform-origin: 50% 0; animation: ea-limb 2.6s ease-in-out infinite; }
+.ea-svg .ea-tail { transform-origin: 100% 100%; animation: ea-tail 1.8s ease-in-out infinite; }
+.ea-svg .ea-fin  { transform-origin: 100% 100%; animation: ea-fin .5s ease-in-out infinite; }
+.ea-svg .ea-fin.ea-alt { transform-origin: 0 100%; animation-name: ea-fin-r; }
+.ea-svg .ea-alt { animation-delay: -1.1s; }
+@keyframes ea-blink { 0%,93%,100% { transform: scaleY(1); } 96% { transform: scaleY(.1); } }
+@keyframes ea-limb  { 0%,100% { transform: rotate(0); } 50% { transform: rotate(4deg); } }
+@keyframes ea-tail  { 0%,100% { transform: rotate(-4deg); } 50% { transform: rotate(5deg); } }
+@keyframes ea-fin   { 0%,100% { transform: rotate(0); } 50% { transform: rotate(-14deg); } }
+@keyframes ea-fin-r { 0%,100% { transform: rotate(0); } 50% { transform: rotate(14deg); } }
+
+/* Underground (burrow move): only a mound of dirt shows; cards cannot target it. */
+.enemy.burrowed { cursor: not-allowed; }
+.enemy.burrowed .sprite { animation: none; transform: translateY(40%) scaleY(.35); filter: brightness(.35) saturate(.4); opacity: .55; transition: transform .4s, opacity .4s; }
+.enemy.burrowed .shadow { width: 120px; height: 18px; background: radial-gradient(ellipse, #6a5038 0%, #3a2a1c 60%, transparent 72%); opacity: 1; }
+.enemy .burrow-mound { position: relative; margin: -34px auto 0; width: 118px; height: 34px; pointer-events: none;
+  background: radial-gradient(ellipse at 50% 100%, #7a5a3a 0 45%, #4a3424 60%, transparent 70%); border-radius: 60px 60px 8px 8px; }
+/* Exposed: a red ring pulses around it. */
+.enemy.exposed .sprite { filter: drop-shadow(0 0 10px #ff4a4a); }
+
+/* What a thief holds (combat/enemyTraits.js): small chips under the HP bar. */
+.loot-row { display: flex; gap: 4px; justify-content: center; margin-top: 3px; flex-wrap: wrap; }
+.loot-chip { font-size: 11px; padding: 1px 6px; border-radius: 8px; background: #3a2e18; border: 1px solid #e0c050; color: #ffe8a0; white-space: nowrap; }
+.ib-part.explode b { color: #ffb04a; }
+.ib-part.ib-special { --ib: #e0c050; }
+.shop-service .mark-icon { font-size: 22px; }

@@ -1,0 +1,60 @@
+/* CARD PACKS: the pack face (js/ui/packs/packArt.js), the hand of packs on the
+   end-of-run screen (js/ui/packs/packHand.js) and the small sealed packs in the fight summary. */
+.pack-face { position: relative; width: 176px; height: 256px; border-radius: 6px; overflow: hidden;
+  filter: drop-shadow(0 10px 16px rgba(0,0,0,.7)); font-family: var(--font-display, inherit); }
+.pack-svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.pack-name { position: absolute; left: 0; right: 0; top: 34px; text-align: center; font-size: 17px; font-weight: 600; letter-spacing: 1.5px;
+  text-transform: uppercase; color: #fff3d6; text-shadow: 0 2px 0 rgba(0,0,0,.6), 0 0 12px var(--pg); }
+.pack-sub { position: absolute; left: 12px; right: 12px; top: 196px; text-align: center; font-size: 13px; color: #f2e4c4; opacity: .9;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-shadow: 0 1px 3px #000; }
+.pack-count { position: absolute; left: 50%; bottom: 26px; translate: -50% 0; padding: 2px 10px; border-radius: 10px; font-size: 11.5px;
+  letter-spacing: 1px; text-transform: uppercase; color: #fff; background: rgba(0,0,0,.45); border: 1px solid color-mix(in srgb, var(--pg) 60%, transparent); }
+
+/* Foil shine that sweeps across */
+.pack-sheen { position: absolute; inset: -40% -60%; pointer-events: none; mix-blend-mode: screen;
+  background: linear-gradient(115deg, transparent 40%, rgba(255,255,255,.28) 48%, rgba(255,255,255,.05) 52%, transparent 60%);
+  animation: packSheen 3.6s ease-in-out infinite; }
+@keyframes packSheen { 0%, 55% { translate: -45% 0; } 100% { translate: 45% 0; } }
+.pack-face .pa-glow { animation: packGlow 2.4s ease-in-out infinite; transform-origin: 88px 128px; }
+.pack-face .pa-flame { animation: packFlame .5s ease-in-out infinite alternate; transform-origin: 0 10px; }
+.pack-face .pa-rays { animation: packSpin 14s linear infinite; transform-origin: 88px 128px; }
+@keyframes packGlow { 0%, 100% { opacity: .65; } 50% { opacity: 1; } }
+@keyframes packFlame { from { transform: scale(1, 1); } to { transform: scale(.9, 1.1); } }
+@keyframes packSpin { to { transform: rotate(360deg); } }
+
+/* Vampire blood pack */
+.pack-face.style-blood .pack-name { color: #ffe9ee; text-shadow: 0 2px 0 #000, 0 0 14px #ff2a44; font-family: Georgia, 'Times New Roman', serif; letter-spacing: 2.5px; top: 70px; }
+.pack-face.style-blood .pack-sub { top: 180px; color: #ffd0d8; font-family: Georgia, serif; font-style: italic; }
+.pack-face.style-blood .pack-count { bottom: 22px; }
+.pack-face.style-blood .pa-eye { animation: packEyes 3s ease-in-out infinite; }
+@keyframes packEyes { 0%, 100% { opacity: 1; } 47%, 53% { opacity: .15; } }
+.pack-face.style-blood .pack-sheen { background: linear-gradient(115deg, transparent 40%, rgba(255,120,140,.25) 48%, rgba(255,255,255,.05) 52%, transparent 60%); }
+.pack-drop { position: absolute; width: 5px; height: 8px; border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; background: #a3001a;
+  box-shadow: inset -1px -1px 1px rgba(0,0,0,.4), inset 1px 1px 1px rgba(255,140,150,.5); animation: packDrop 2.8s cubic-bezier(.6,0,.9,.6) infinite; opacity: 0; }
+.pack-drop.d1 { left: 90px; top: 62px; animation-delay: .2s; }
+.pack-drop.d2 { left: 44px; top: 50px; animation-delay: 1.3s; animation-duration: 3.4s; }
+.pack-drop.d3 { left: 140px; top: 48px; animation-delay: 2.1s; animation-duration: 3s; }
+@keyframes packDrop { 0% { opacity: 0; translate: 0 0; scale: .4; } 15% { opacity: 1; scale: 1; translate: 0 0; } 100% { opacity: 0; translate: 0 190px; } }
+
+/* Hand of packs (end of run): same fan as the fight hand (css/hand.css) */
+.pack-hand { display: flex; justify-content: center; align-items: flex-start; min-height: 340px; padding-top: 62px; }
+.pack-hand .pack { margin: 0 -14px; cursor: pointer; rotate: var(--rot, 0deg); translate: 0 calc(var(--dy, 0px) + 360px); opacity: 0;
+  transform-origin: 50% 110%; transition: translate .45s cubic-bezier(.2,.9,.3,1.2), rotate .25s, scale .25s, opacity .3s, filter .25s; }
+.pack-hand .pack.dealt { translate: 0 var(--dy, 0px); opacity: 1; }
+.pack-hand .pack.dealt:hover { rotate: 0deg; translate: 0 -30px; scale: 1.14; z-index: 20; filter: drop-shadow(0 0 22px var(--pg, #ffd35a)); }
+.pack-hand .pack.dealt:has(+ .pack:hover) { translate: -32px var(--dy, 0px); }
+.pack-hand .pack.dealt:hover + .pack { translate: 32px var(--dy, 0px); }
+.pack-hand .pack.dealt:hover .pack-face { animation: packWiggle .5s ease-in-out infinite alternate; }
+@keyframes packWiggle { from { rotate: -1.5deg; } to { rotate: 1.5deg; } }
+
+/* Small sealed packs in the fight summary */
+.fs-pack-row { display: flex; gap: 14px; justify-content: center; padding: 10px 0 6px; }
+.fs-pack { width: 88px; height: 128px; animation: fsPackIn .6s cubic-bezier(.2,.9,.3,1.3) both; }
+.fs-pack:nth-child(2) { animation-delay: .15s; }
+.fs-pack:nth-child(3) { animation-delay: .3s; }
+.fs-pack .pack-face { scale: .5; transform-origin: 0 0; }
+@keyframes fsPackIn { from { opacity: 0; translate: 0 30px; rotate: -8deg; } to { opacity: 1; translate: 0 0; rotate: 0deg; } }
+@media (max-height: 820px) {
+  .pack-hand { min-height: 280px; padding-top: 26px; }
+  .pack-hand .pack .pack-face { scale: .86; transform-origin: 50% 100%; }
+}

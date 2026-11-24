@@ -1,0 +1,26 @@
+// POLISH: 2-player co-op (js/coop, js/ui/coop, data/coopData.js).
+Game.I18N.add('pl', {
+  'Co-op (2 players)': 'Co-op (2 graczy)', 'Create lobby': 'Utwórz lobby', 'Join lobby': 'Dołącz', 'CODE': 'KOD',
+  'Server address': 'Adres serwera', 'Server address (empty = this page)': 'Adres serwera (puste = ta strona)',
+  'Connecting...': 'Łączenie...', 'No lobby with that code.': 'Nie ma lobby z takim kodem.', 'That lobby is full.': 'To lobby jest pełne.',
+  'Could not reach the server.': 'Nie można połączyć się z serwerem.', 'Type the server address first.': 'Wpisz najpierw adres serwera.',
+  'Type the lobby code first.': 'Wpisz najpierw kod lobby.', 'Connection lost.': 'Utracono połączenie.',
+  'Co-op lobby': 'Lobby co-op', 'Lobby code': 'Kod lobby', 'Player 1': 'Gracz 1', 'Player 2': 'Gracz 2',
+  'You (host)': 'Ty (host)', 'Host': 'Host', 'You': 'Ty', 'Partner connected': 'Partner połączony', 'Waiting...': 'Czekam...',
+  'Your partner is here. Start when you are ready.': 'Twój partner jest tutaj. Zacznij, gdy będziesz gotowy.',
+  'Waiting for your partner. Share the code!': 'Czekam na partnera. Podaj mu kod!',
+  'Connected. Waiting for the host to start...': 'Połączono. Czekam, aż host zacznie...',
+  'Start co-op': 'Zacznij co-op', 'Leave': 'Wyjdź', 'Pick your hero...': 'Wybierz bohatera...',
+  'Hero picked. Waiting for your partner to pick...': 'Bohater wybrany. Czekam, aż partner wybierze...',
+  'Waiting for your partner...': 'Czekam na partnera...', '{name} is still choosing.': '{name} jeszcze wybiera.',
+  'Your turn': 'Twoja tura', "{name}'s turn": 'Tura: {name}', 'The enemies are acting...': 'Przeciwnicy działają...',
+  "It is your teammate's turn.": 'Teraz tura partnera.', 'Only the host can do that.': 'Tylko host może to zrobić.',
+  'Gift card': 'Podaruj kartę', 'Your teammate': 'Twój partner', 'Click to see their deck, energy and health.': 'Kliknij, aby zobaczyć jego talię, energię i zdrowie.',
+  'Pick a card from your hand to send to your teammate. You pay its energy cost (X cards: 1), they play it for free. Only on your own turn.':
+    'Wybierz kartę z ręki, którą wyślesz partnerowi. Płacisz jej koszt energii (karty X: 1), a on zagra ją za darmo. Tylko w swojej turze.',
+  'Their whole deck (hand, draw, discard).': 'Cała jego talia (ręka, dobieranie, odrzucone).',
+  'Energy': 'Energia', 'HP': 'ŻYCIE', 'Block': 'Blok', 'Hand': 'Ręka', 'Draw pile': 'Stos dobierania', 'Discard pile': 'Stos odrzuconych',
+  'YOU': 'TY', 'This enemy aims at {name}': 'Ten przeciwnik celuje w: {name}',
+  'Co-op ended': 'Koniec co-op', 'The host left. The co-op session is over.': 'Host wyszedł. Sesja co-op dobiegła końca.',
+  'Your partner left. The co-op session is over.': 'Partner wyszedł. Sesja co-op dobiegła końca.',
+});

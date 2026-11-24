@@ -1,0 +1,77 @@
+/* PANELS & SCREENS (look only): one warm, soft panel style shared by the menu,
+   messages, events, rewards, windows and tooltips; plus small screen touches.
+   Corner filigree comes from css/ornaments.css. Loaded after the screen styles. */
+:root { --panel-bg: radial-gradient(120% 70% at 50% 0%, rgba(217,164,65,.08), transparent 60%), linear-gradient(#211b29, #131017);
+  --panel-edge: #4f4133; --panel-shadow: 0 26px 60px rgba(0,0,0,.6), 0 2px 0 rgba(0,0,0,.4), inset 0 1px 0 rgba(255,236,200,.08); }
+
+body { background: radial-gradient(ellipse 90% 70% at 50% 0%, #221b2a, transparent 70%), radial-gradient(ellipse at 50% 120%, #1a1210, transparent 60%), var(--bg) fixed; }
+::selection { background: rgba(217,164,65,.35); }
+* { scrollbar-width: thin; scrollbar-color: #6a5636 transparent; }
+::-webkit-scrollbar { width: 9px; height: 9px; }
+::-webkit-scrollbar-thumb { background: linear-gradient(#7a6238, #4a3a22); border-radius: 6px; border: 2px solid transparent; background-clip: padding-box; }
+
+.menu-panel, .message-panel, .event-card, .reward-panel, .hs-info, .overlay-panel {
+  background: var(--panel-bg); border: 1px solid var(--panel-edge); border-radius: 18px; box-shadow: var(--panel-shadow); }
+
+/* main menu */
+.menu-screen { margin-top: 34px; }
+.menu-panel { display: inline-flex; flex-direction: column; align-items: center; padding: 28px 54px 26px; min-width: 400px; }
+.menu-panel h1 { margin: 6px 0 2px; font-size: 50px; letter-spacing: 3px;
+  background: linear-gradient(180deg, #fff0c8 0%, #f2c46a 45%, #b9802e 100%); -webkit-background-clip: text; background-clip: text; color: transparent;
+  filter: drop-shadow(0 2px 0 #3a2408) drop-shadow(0 0 18px rgba(217,164,65,.35)); }
+.menu-tag { margin: 0 0 4px; letter-spacing: 2px; text-transform: uppercase; font-size: 11.5px; }
+.menu-panel .menu-emblem { margin: 4px auto 18px; }
+.menu-panel .stack { width: 270px; gap: 11px; }
+.menu-panel .stack > button { width: 100%; }
+.menu-panel .stack > button:first-child:not(:disabled) { color: #fff3d8; border-color: #b8873a; }
+.menu-panel > .muted:last-child, .menu-panel > p:last-child { margin: 18px 0 0; }
+
+/* message (level cleared, victory, defeat) */
+.message-screen { margin-top: 70px; }
+.message-panel { display: inline-block; max-width: 600px; padding: 30px 50px 32px; animation: panel-in .45s cubic-bezier(.2,.9,.3,1.15); }
+.message-panel h1 { margin: 4px 0 6px; font-size: 40px; }
+.message-panel p { font-size: 16px; line-height: 1.55; color: #ddd4e4; margin: 0 0 22px; }
+@keyframes panel-in { from { opacity: 0; transform: translateY(14px) scale(.97); } }
+
+/* events */
+.event-card { width: 100%; max-width: 760px; margin: 0 auto; padding: 26px 40px 30px; }
+.event-screen { margin-top: 18px; }
+.event-card h2 { margin: 10px 0 8px; font-size: 27px; }
+.event-option { overflow: hidden; border-left: 3px solid #6a5530; background: linear-gradient(90deg, rgba(217,164,65,.06), transparent 40%), linear-gradient(#272130, #1a1620);
+  box-shadow: 0 3px 10px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,236,200,.05); }
+.event-option:hover:not(.disabled) { border-left-color: var(--gold); background: linear-gradient(90deg, rgba(217,164,65,.14), transparent 55%), linear-gradient(#2c2536, #1e1a25); }
+.event-option:active:not(.disabled) { transform: translateX(3px) scale(.99); }
+.event-result li { background: linear-gradient(90deg, rgba(217,164,65,.1), rgba(255,255,255,.02)); }
+
+/* reward header */
+.reward-panel { display: inline-block; padding: 20px 40px 18px; margin: 6px auto 12px; }
+.reward-panel h2 { margin: 4px 0 6px; }
+.reward-panel .fight-summary { margin-bottom: 0; background: rgba(0,0,0,.25); border-radius: 12px; border-color: #3a3244; }
+
+/* rest site tiles */
+.rest-option { overflow: hidden; border-radius: 14px; background: radial-gradient(100% 60% at 50% 0%, rgba(255,255,255,.05), transparent 70%), linear-gradient(#241f2c, #16131b);
+  box-shadow: 0 6px 16px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,236,200,.06); }
+.rest-option > .key-hint { top: 8px; right: 8px; left: auto; translate: none; }
+.rest-option:active:not(.disabled) { transform: translateY(-2px) scale(.98); }
+
+/* windows */
+.overlay { backdrop-filter: blur(4px) saturate(.8); }
+.overlay-panel { animation: panel-in .28s cubic-bezier(.2,.9,.3,1.15); }
+.overlay-head { position: relative; padding: 16px 22px 12px; border-bottom: 0; }
+.overlay-head::after { content: ''; position: absolute; left: 22px; right: 22px; bottom: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(217,164,65,.55), transparent); }
+.overlay-head h2 { font-size: 24px; }
+.overlay-body { padding: 18px 24px 24px; }
+
+/* hero select info panel */
+.hs-info { padding: 18px 24px; }
+
+/* tooltips: a warm top hairline */
+.tip { position: relative; border-radius: 10px; background: radial-gradient(100% 80% at 0% 0%, color-mix(in srgb, var(--tip) 10%, transparent), transparent 60%), linear-gradient(#231e2c, #141118); }
+.tip::before { content: ''; position: absolute; left: 10px; right: 10px; top: 0; height: 1px; background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--tip) 70%, transparent), transparent); }
+
+/* nameplates in fights: a touch more depth */
+.enemy .plate { border-radius: 10px; border-color: rgba(255,220,170,.12); box-shadow: 0 6px 14px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.05); }
+.player { border-radius: 12px; border-color: #5a4a3a; }
+
+/* map nodes you can pick answer a press (hover grow is in css/map.css) */
+.map-node.available:active { scale: .92; transition: scale .05s; }

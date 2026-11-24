@@ -1,0 +1,22 @@
+/* HAND (combat): cards fanned in an arc. --rot / --dy are set per card by the combat screen.
+   Hovered card rises and grows, its neighbours step aside. */
+.hand.fan { flex-wrap: nowrap; gap: 0; min-height: 300px; padding-top: 40px; margin: 0; align-items: flex-start; }
+.hand.fan .card { margin: 0 -10px; rotate: var(--rot, 0deg); translate: 0 var(--dy, 0px); transform-origin: 50% 110%; }
+.hand.fan .card:hover:not(.disabled) { transform: none; }
+.hand.fan .card:hover, .hand.fan .card.selected, .hand.fan .card.aiming { rotate: 0deg; translate: 0 -48px; scale: 1.2; z-index: 20; }
+.hand.fan .card.disabled:hover { translate: 0 -26px; scale: 1.08; }
+.hand.fan .card:has(+ .card:hover) { translate: -30px var(--dy, 0px); }
+.hand.fan .card:hover + .card { translate: 30px var(--dy, 0px); }
+.hand.fan .card.selected { animation: picked 1.2s ease-in-out infinite; }
+.hand.fan .card.aiming { border-color: #ff6a5a; box-shadow: 0 0 24px rgba(255,106,90,.6); }
+@keyframes picked { 0%,100% { box-shadow: 0 0 14px rgba(217,164,65,.5); } 50% { box-shadow: 0 0 30px rgba(217,164,65,.9); } }
+
+
+/* Non-attack card being dragged: glows when it will be played on release */
+.drag-ghost.ready { box-shadow: 0 0 26px color-mix(in srgb, var(--tc) 80%, transparent), 0 14px 28px rgba(0,0,0,.8); }
+body.dragging-card { cursor: grabbing; }
+@media (max-height: 820px) {
+  .hand.fan { min-height: 262px; padding-top: 30px; }
+  .hand.fan .card { width: 156px; height: 222px; }
+  .hand.fan .card .text { font-size: 13px; }
+}

@@ -1,0 +1,69 @@
+/* HERO SELECT SCREEN (js/ui/screens/characterScreen.js). --hc = hero accent color */
+.hero-select { max-width: 1080px; margin: 10px auto 0; text-align: center; }
+.hero-select h2 { margin: 6px 0 2px; font-family: var(--font-display, inherit); font-size: 30px; letter-spacing: 1px; }
+.hs-body { display: flex; gap: 26px; align-items: stretch; margin-top: 14px; text-align: left; }
+.hs-stage { position: relative; flex: 0 0 340px; height: 400px; display: flex; align-items: flex-end; justify-content: center;
+  background: radial-gradient(ellipse at 50% 85%, color-mix(in srgb, var(--hc) 22%, transparent), transparent 65%), linear-gradient(#1a1722, #100e14);
+  border: 1px solid color-mix(in srgb, var(--hc) 45%, var(--line)); border-radius: 14px; overflow: hidden; }
+.hs-stage .mc { position: relative; z-index: 2; margin-bottom: 24px; }
+.hs-glow { position: absolute; left: 50%; top: 46%; width: 300px; height: 300px; translate: -50% -50%; border-radius: 50%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--hc) 30%, transparent), transparent 70%); animation: hs-breathe 4s ease-in-out infinite; }
+@keyframes hs-breathe { 0%,100% { opacity: .6; transform: scale(.95); } 50% { opacity: 1; transform: scale(1.05); } }
+.hs-pedestal { position: absolute; left: 50%; bottom: 14px; width: 220px; height: 34px; translate: -50% 0; border-radius: 50%;
+  background: radial-gradient(ellipse, color-mix(in srgb, var(--hc) 35%, #000) , #0a090c 70%); box-shadow: 0 0 30px color-mix(in srgb, var(--hc) 30%, transparent); }
+
+.hs-info { flex: 1; min-width: 0; background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 16px 20px; }
+.hs-name { font-family: var(--font-display, inherit); font-size: 32px; color: var(--hc); line-height: 1.1; }
+.hs-title { color: var(--muted); font-size: 14px; letter-spacing: .5px; margin-top: 2px; }
+.hs-blurb { margin: 10px 0 12px; line-height: 1.45; }
+.hs-stats { display: flex; gap: 10px; }
+.hs-stat { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 6px 4px; background: var(--panel2); border: 1px solid var(--line); border-radius: 10px; }
+.hs-stat b { font-family: var(--font-display, inherit); font-size: 24px; }
+.hs-stat small { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .8px; }
+.hs-stat.hp b { color: #ff7a7a; } .hs-stat.en b { color: #ffd35a; } .hs-stat.dk b { color: #8ab0e8; }
+.hs-section { margin-top: 14px; }
+.hs-section h4 { margin: 0 0 6px; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: var(--gold); }
+.hs-passive { display: flex; gap: 10px; align-items: center; padding: 6px 10px; background: var(--panel2); border-radius: 10px; border: 1px solid var(--line); }
+.hs-passive b { display: block; } .hs-passive small { color: var(--text); opacity: .8; }
+.hs-passive-ico { flex: 0 0 auto; display: inline-flex; }
+.hs-cards { display: flex; flex-wrap: wrap; gap: 2px; }
+.hs-card { zoom: .4; }
+.hs-group { display: flex; gap: 2px; }
+.hs-group + .hs-group { margin-left: 22px; padding-left: 22px; border-left: 1px dashed var(--line); }
+.hs-mystery { width: 176px; height: 250px; border-radius: 14px; border: 3px solid #3a3446; display: flex; align-items: center; justify-content: center;
+  background: repeating-linear-gradient(45deg, #1b1822 0 12px, #211d2a 12px 24px); box-shadow: inset 0 0 30px #000; }
+.hs-mystery span { font-family: var(--font-display, inherit); font-size: 120px; color: #5c5370; text-shadow: 0 0 14px #000; }
+
+.hs-roster { display: flex; gap: 14px; justify-content: center; margin: 18px 0 10px; }
+.hs-slot { width: 110px; height: 132px; padding-bottom: 0 !important; border-radius: 14px; border: 2px solid var(--line); background: linear-gradient(#211e29, #16141b);
+  display: flex; flex-direction: column; align-items: center; justify-content: flex-end; padding-bottom: 6px; cursor: pointer; overflow: hidden; position: relative;
+  transition: transform .12s, border-color .12s, box-shadow .12s; }
+.hs-slot:hover:not(.empty) { transform: translateY(-4px); }
+.hs-slot.on { border-color: var(--hc); box-shadow: 0 0 18px color-mix(in srgb, var(--hc) 45%, transparent); }
+.hs-slot small { position: relative; z-index: 2; width: 100%; padding: 4px 0 2px; font-size: 12px; color: var(--text); text-align: center; background: linear-gradient(transparent, rgba(10,9,12,.92) 35%); }
+.hs-slot.on small { color: var(--hc); }
+.hs-face { position: absolute; top: -4px; left: 50%; translate: -50% 0; pointer-events: none; }
+.hs-slot.empty small { background: none; }
+.hs-slot.empty { cursor: default; border-style: dashed; opacity: .55; justify-content: center; }
+.hs-q { font-family: var(--font-display, inherit); font-size: 44px; color: var(--muted); }
+.hs-actions { display: flex; gap: 12px; justify-content: center; margin-bottom: 20px; }
+.hs-actions button { min-width: 140px; padding: 10px 20px; font-size: 16px; }
+button.primary { background: linear-gradient(#e0b04e, #a8772a); color: #1a1208; border-color: #f0c870; font-weight: bold; }
+button.primary:hover:not(:disabled) { background: linear-gradient(#f0c060, #b8873a); }
+
+/* Short screens (laptops, 768-900px tall): squeeze the screen so it fits without scrolling (kupka hates scrolling). */
+@media (max-height: 940px) {
+  .hero-select { margin-top: 0; }
+  .hero-select h2 { margin: 2px 0 0; font-size: 26px; }
+  .hs-body { margin-top: 8px; gap: 20px; }
+  .hs-stage { height: auto; min-height: 330px; }
+  .hs-info { padding: 12px 18px; }
+  .hs-blurb { margin: 6px 0 8px; }
+  .hs-section { margin-top: 10px; }
+  .hs-cards { flex-wrap: nowrap; }
+  .hs-card { zoom: .34; }
+  .hs-roster { margin: 10px 0 8px; gap: 12px; }
+  .hs-slot { width: 96px; height: 104px; }
+  .hs-actions { margin-bottom: 8px; }
+  .hs-actions button { padding: 8px 18px; }
+}

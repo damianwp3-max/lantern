@@ -1,0 +1,35 @@
+/* FONTS: the two typefaces of the game and how text is smoothed.
+   Files live in /fonts (both SIL Open Font License, see fonts/OFL-*.txt), so the game works offline.
+     --font-body     Nunito: soft, rounded, easy to read. All normal text.
+     --font-display  Fredoka: round and chunky. Titles, card names, numbers that matter.
+   To change a font for the whole game, change the variable here. */
+@font-face { font-family: 'Nunito'; src: url('../fonts/Nunito.woff2') format('woff2'); font-weight: 200 1000; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Fredoka'; src: url('../fonts/Fredoka.woff2') format('woff2'); font-weight: 300 700; font-style: normal; font-display: swap; }
+
+:root {
+  --font-body: 'Nunito', 'Segoe UI', system-ui, sans-serif;
+  --font-display: 'Fredoka', 'Nunito', 'Segoe UI', system-ui, sans-serif;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-synthesis: none;
+}
+body { font-family: var(--font-body); font-weight: 500; }
+button, input, select, textarea { font-family: inherit; }
+b, strong { font-weight: 800; }
+
+/* Big, important words and numbers use the round display font. */
+h1, h2, h3,
+.card .cost, .card .name, .tm-result, .tm-title,
+.energy-orb .energy, .hp-text, .blk-badge b, .pile-count,
+.float, .ib-part b, .pl-name, .enemy .plate .name, .st-chip b,
+.cb-right [data-action="endTurn"] {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: .3px;
+}
+h1 { font-weight: 700; }
+.log { font-family: ui-monospace, Consolas, monospace; }

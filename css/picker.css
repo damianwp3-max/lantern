@@ -1,0 +1,14 @@
+/* CARD PICKER (js/ui/screens/pickerScreen.js) */
+.picker-screen { text-align: center; }
+.pk-offers { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin: 12px 0; }
+.pk-offer { --pc: #aaa; width: 230px; padding: 10px 12px; cursor: pointer; border-radius: 10px; border: 2px solid color-mix(in srgb, var(--pc) 45%, #2a2533); background: linear-gradient(#262130, #1a1722); text-align: left; transition: transform .12s; }
+.pk-offer:hover { transform: translateY(-4px); }
+.pk-offer.on { border-color: var(--pc); box-shadow: 0 0 18px color-mix(in srgb, var(--pc) 55%, transparent); }
+.pk-offer b { display: flex; align-items: center; gap: 6px; color: var(--pc); font-size: 16px; }
+.pk-offer b i { font-style: normal; }
+.pk-offer span { display: block; margin-top: 4px; font-size: 12px; color: var(--muted); }
+.pk-preview { display: flex; align-items: center; justify-content: center; gap: 18px; margin: 14px 0; padding: 12px; border-radius: 12px; background: rgba(217,164,65,.07); border: 1px solid #6a5530; }
+.pk-arrow { font-size: 36px; color: var(--gold); }
+.pk-confirm { display: flex; flex-direction: column; gap: 8px; align-items: center; }
+.pk-confirm button { font-size: 16px; padding: 10px 22px; border-color: var(--gold); }
+.pk-grid .card { cursor: pointer; }

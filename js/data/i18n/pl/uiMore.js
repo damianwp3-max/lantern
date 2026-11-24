@@ -1,0 +1,23 @@
+// POLISH: the combat log and small messages from the rules modules.
+Game.I18N.add('pl', {
+  '--- Turn {n} ---': '--- Tura {n} ---',
+  'Discard pile shuffled into draw pile.': 'Stos odrzuconych wtasowany do stosu dobierania.',
+  'You play {s}.': 'Zagrywasz: {s}.', 'You play {s} with X = {n}.': 'Zagrywasz: {s} z X = {n}.',
+  '{s} fizzles. Nothing happens.': '{s} zawodzi. Nic się nie dzieje.', '{s} goes off twice!': '{s} działa dwa razy!',
+  'Timing: {s} (x{n}).': 'Wyczucie: {s} (x{n}).',
+  'Something will happen next turn...': 'Coś wydarzy się w następnej turze...',
+  '{n} delayed effect go off.': '{n} opóźniony efekt działa.', '{n} delayed effects go off.': 'Opóźnione efekty działają: {n}.',
+  'You gain {n} block.': 'Zyskujesz {n} pkt Bloku.', 'Your block doubles to {n}.': 'Twój Blok podwaja się do {n}.',
+  'You gain {n} block from unspent energy.': 'Zyskujesz {n} pkt Bloku z niewydanej Energii.',
+  'You gain {n} energy.': 'Zyskujesz {n} Energii.', 'You lose {n} energy.': 'Tracisz {n} Energii.',
+  'You gain {n} strength.': 'Zyskujesz {n} Siły.', 'You heal {n} HP.': 'Leczysz {n} HP.', 'You lose {n} HP.': 'Tracisz {n} HP.',
+  'Nothing came out of the pack.': 'Z paczki nic nie wypadło.', 'A random card appears: {s}.': 'Pojawia się losowa karta: {s}.',
+  '{s} gains {n} block.': '{s} zyskuje {n} pkt Bloku.',
+  '{s} adds {n} {s2} to your discard pile.': '{s} dodaje {n}× {s2} do twojego stosu odrzuconych.',
+  '{s} hits {s2} for {n}.': '{s} trafia: {s2} za {n}.', '{s} hits {s2} for {n} ({n2} blocked).': '{s} trafia: {s2} za {n} ({n2} zablokowane).',
+  'Power: {s}.': 'Moc: {s}.',
+  '{s} gets {n} {s2}.': '{s} otrzymuje {n} {s2}.', '{s} loses {n} {s2}.': '{s} traci {n} {s2}.',
+  '{s} lose {n} HP to poison.': '{s} tracisz {n} HP od Trucizny.', '{s} loses {n} HP to poison.': '{s} traci {n} HP od Trucizny.',
+  'You burn oil: +{n} energy, draw {s}.': 'Spalasz olej: +{n} Energii, dobierasz {s}.',
+  '+{n} strength': '+{n} Siły', '🛡 {n} blocked': '🛡 {n} zablokowane',
+});

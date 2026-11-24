@@ -1,0 +1,25 @@
+// CARD DRAWINGS: luck, gambling and fortune (one unique picture per card; see data/cardIconsData.js).
+(function () {
+  const M = Game.UI.cardArt.registerMotif, K = Game.UI.cardArt.kit, { W, D, L } = K;
+
+  M('rabbitFoot', c => `<path d="M40 44 Q34 30 42 18 Q48 8 56 14 Q62 22 58 34 Q56 44 48 46Z" fill="#e8dcc8" stroke="${L}" stroke-width="1.2"/><path d="M44 18 Q46 14 50 14" stroke="#fff" stroke-width="1.4" fill="none"/>
+    <path d="M42 44 H56" stroke="#c8b070" stroke-width="3"/><path d="M50 46 V50" stroke="#c8b070" stroke-width="1.4"/>${K.clover(76, 18, .7, c)}`);
+  M('flipCoin', c => `<ellipse cx="50" cy="24" rx="6" ry="16" fill="${c}" stroke="${L}" stroke-width="1.2"/><ellipse cx="52" cy="24" rx="3" ry="14" fill="${W}" opacity=".35"/>
+    <path d="M30 12 Q24 24 30 36 M70 12 Q76 24 70 36" stroke="${W}" stroke-width="1.6" fill="none"/><path d="M28 34 L30 38 L34 35 M72 14 L70 10 L66 13" stroke="${W}" stroke-width="1.6" fill="none"/>`);
+  M('streak', c => `<path d="M8 44 Q40 30 70 14" stroke="${c}" stroke-width="6" opacity=".2" stroke-linecap="round"/><path d="M14 42 Q42 28 70 14" stroke="${c}" stroke-width="2" stroke-linecap="round"/>${K.star(74, 12, 9, 3.6, 5, c)}<circle cx="74" cy="12" r="2" fill="${W}"/>${K.clover(26, 18, .5, c)}`);
+  M('fortuneCandle', c => `${K.candle(50, 46, 22, c)}<g class="art-flicker2">${K.star(50, 10, 6, 2, 5, '#ffd35a')}</g><path d="M30 30 Q34 26 38 30 M62 30 Q66 26 70 30" stroke="${c}" stroke-width="1.2" fill="none"/>`);
+  M('snakeEyes', c => `${K.die(34, 30, 1, '#e03a4a', 1)}${K.die(66, 30, 1, '#e03a4a', 1)}<path d="M12 12 Q24 2 34 10 Q44 18 54 10 Q64 2 74 10 Q82 16 90 10" stroke="${c}" stroke-width="3" fill="none" stroke-linecap="round"/><circle cx="90" cy="10" r="2.6" fill="${c}"/><path d="M92 10 L96 8 M92 10 L96 12" stroke="#e03a4a" stroke-width="1"/>`);
+  M('cat', c => `<path d="M30 46 Q26 26 40 20 L36 8 L46 16 H54 L64 8 L60 20 Q74 26 70 46Z" fill="#1a171f" stroke="${c}" stroke-width="1.4"/><ellipse cx="43" cy="28" rx="3.4" ry="4" fill="${c}"/><ellipse cx="57" cy="28" rx="3.4" ry="4" fill="${c}"/>
+    <path d="M43 25 V31 M57 25 V31" stroke="${L}" stroke-width="1.2"/><path d="M48 34 L50 36 L52 34" stroke="${c}" stroke-width="1" fill="none"/><path class="art-swing" style="transform-origin:70px 44px" d="M70 44 Q86 40 84 26" stroke="#1a171f" stroke-width="4" fill="none" stroke-linecap="round"/>`);
+  M('sparkStar', c => `<g class="art-flicker">${K.star(50, 25, 18, 5, 4, c)}</g>${K.star(50, 25, 9, 3, 4, W)}${K.clover(20, 14, .5, '#6fcf7a')}${K.clover(80, 32, .5, '#6fcf7a')}`);
+  M('wildLantern', c => `${K.lantern(50, 30, 1.6, c)}<text x="50" y="35" text-anchor="middle" font-size="12" font-weight="800" fill="${L}">?</text><path d="M18 12 L24 18 M82 12 L76 18 M16 34 H24 M76 34 H84" stroke="${c}" stroke-width="1.8" stroke-linecap="round"/>`);
+  M('loadedDie', c => `<g transform="rotate(-12 50 26)">${K.die(50, 26, 1.4, c, 6)}</g><path d="M66 38 Q76 44 84 40 L86 46 H66Z" fill="#6a6478" stroke="${L}" stroke-width="1"/><text x="76" y="45" text-anchor="middle" font-size="5" fill="${W}">lb</text>`);
+  M('fourStar', c => `${[[30, 16], [70, 16], [30, 36], [70, 36]].map(([x, y], i) => `<g class="${i % 2 ? 'art-flicker' : 'art-flicker2'}">${K.star(x, y, 7, 2.4, 4, c)}</g>`).join('')}<g transform="translate(50 22)">${K.clover(0, 0, .9, '#6fcf7a')}</g>`);
+  M('cloverCoin', c => `${K.coin(50, 25, 18, '#e8c840')}<g transform="translate(50 22)">${K.clover(0, 0, .8, c)}</g>`);
+  M('jokerCard', c => `<rect x="34" y="4" width="32" height="42" rx="3" fill="${W}" stroke="${L}" stroke-width="1.2" transform="rotate(6 50 25)"/><path d="M40 22 L44 12 L50 20 L56 12 L60 22Z" fill="${c}" transform="rotate(6 50 25)"/>
+    <circle cx="44" cy="11" r="2" fill="#ffd35a" transform="rotate(6 50 25)"/><circle cx="56" cy="11" r="2" fill="#ffd35a" transform="rotate(6 50 25)"/><circle cx="50" cy="30" r="5" fill="#ffe0c8" stroke="${L}" stroke-width=".8" transform="rotate(6 50 25)"/><path d="M47 31 Q50 34 53 31" stroke="${L}" stroke-width=".9" fill="none" transform="rotate(6 50 25)"/>`);
+  M('skullCoin', c => `${K.coin(50, 25, 18, '#a89a6a')}${K.skull(50, 26, 1, '#e8e0c8')}<path d="M24 8 Q18 4 14 10 M76 8 Q82 4 86 10" stroke="${c}" stroke-width="1.4" fill="none"/>`);
+  M('jesterHat', c => `<path d="M24 36 Q30 10 50 26 Q70 10 76 36Z" fill="${c}" stroke="${L}" stroke-width="1.2"/><path d="M50 26 Q50 8 40 6" stroke="${c}" stroke-width="5" fill="none"/><path d="M24 36 Q14 30 12 18 M76 36 Q86 30 88 18" stroke="${c}" stroke-width="5" fill="none" stroke-linecap="round"/>
+    <circle cx="12" cy="16" r="3.4" fill="#ffd35a"/><circle cx="88" cy="16" r="3.4" fill="#ffd35a"/><circle cx="40" cy="5" r="3" fill="#ffd35a"/><path d="M22 36 H78 V42 H22Z" fill="${W}" stroke="${L}" stroke-width="1"/>`);
+  M('stubCandle', c => `${K.candle(50, 44, 8, c)}<path d="M40 44 Q36 46 44 46 M58 42 Q66 44 60 46" stroke="#e8dcc0" stroke-width="2" fill="none"/><circle cx="50" cy="30" r="14" fill="${c}" opacity=".1"/><path d="M26 44 H74" stroke="#5a4030" stroke-width="2"/>`);
+})();

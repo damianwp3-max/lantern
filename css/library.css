@@ -1,0 +1,12 @@
+/* CARD LIBRARY (js/ui/screens/libraryScreen.js): tabs + every card in the game */
+.library-view { height: calc(100vh - 60px); }
+.lib-bar { display: flex; flex-wrap: wrap; gap: 8px; padding: 0 4px 10px; }
+.lib-tab { --tc: #d9a441; padding: 6px 14px; border-radius: 16px; font-weight: 700; border: 1px solid color-mix(in srgb, var(--tc) 55%, transparent); background: rgba(10,9,13,.6); color: #e8dcc8; }
+.lib-tab small { color: var(--muted); font-weight: 600; margin-left: 3px; }
+.lib-tab.on { background: color-mix(in srgb, var(--tc) 28%, #16131b); border-color: var(--tc); color: #fff4e0; box-shadow: 0 0 12px color-mix(in srgb, var(--tc) 45%, transparent); }
+.lib-up { margin-left: auto; }
+.lib-card { position: relative; }
+.lib-card.locked .card { filter: grayscale(.85) brightness(.6); }
+.lib-lock, .lib-start { position: absolute; left: 50%; translate: -50% 0; bottom: -6px; padding: 2px 10px; border-radius: 9px; font-size: 11px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; z-index: 3; }
+.lib-lock { background: #2a2433; border: 1px solid #6a5f7a; color: #cfc4dc; }
+.lib-start { background: #2a2210; border: 1px solid #8a6a2c; color: #ffe0a0; }

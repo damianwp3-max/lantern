@@ -1,0 +1,10 @@
+/* SETTINGS window (js/ui/viewers/settingsViewer.js) */
+.set-list { display: flex; flex-direction: column; gap: 14px; }
+.set-row { display: flex; gap: 18px; align-items: center; justify-content: space-between; padding: 10px 12px; border-radius: 8px; background: rgba(255,255,255,.03); }
+.set-label { font-weight: bold; color: #f0e2c0; font-size: 16px; }
+.set-text { font-size: 12px; color: var(--muted); max-width: 300px; margin-top: 2px; }
+.set-ctrl { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
+.set-opt.on { background: #4a3a1c; border-color: var(--gold); color: #ffe9b8; }
+.set-foot { margin-top: 16px; text-align: center; }
+.set-slider { width: 170px; accent-color: var(--gold); cursor: pointer; }
+.set-val { min-width: 42px; text-align: right; color: #ffe9b8; font-variant-numeric: tabular-nums; align-self: center; }
